@@ -1,0 +1,166 @@
+.shell pwsh
+
+# Reload whkd configuration
+# alt + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd if shell is pwsh / powershell
+# alt + shift + o         : taskkill /f /im whkd.exe; Start-Process whkd -Verb RunAs -WindowStyle hidden
+alt + shift + o         : taskkill /f /im whkd.exe; Start-Process whkd -Verb RunAs -WindowStyle hidden
+alt + f22		: komorebic manage
+alt + shift + f22	: komorebic unmanage
+# alt + f15		: komorebic active-window-border enable
+# alt + f16		: komorebic active-window-border disable
+# alt + shift + o         : komorebic reload-configuration # only for autohotkey
+
+
+# App shortcuts - these require shell to be pwsh / powershell
+# The apps will be focused if open, or launched if not open
+# alt + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
+# alt + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
+# alt + f                 : if ($wshell.AppActivate('Todoist') -eq $False) { start todoist }
+
+# Focus windows
+alt + h                 : komorebic focus left
+alt + j                 : komorebic focus down
+alt + k                 : komorebic focus up
+alt + l                 : komorebic focus right
+alt + shift + oem_4     : komorebic cycle-focus previous # oem_4 is [
+alt + shift + oem_6     : komorebic cycle-focus next # oem_6 is ]
+
+# Move windows
+alt + shift + h         : komorebic move left
+alt + shift + j         : komorebic move down
+alt + shift + k         : komorebic move up
+alt + shift + l         : komorebic move right
+# alt + shift + return    : komorebic promot
+
+# Stack windows
+alt + n                 : komorebic stack left
+alt + m                 : komorebic stack down
+alt + oem_comma         : komorebic stack up
+alt + oem_period        : komorebic stack right
+alt + oem_1             : komorebic unstack # oem_1 is ;
+#alt + shift + m		: komorebic cycle-stack previous # oem_4 is [
+#alt + shift + oem_comma : komorebic cycle-stack next # oem_6 is ]
+alt + u		        : komorebic cycle-stack previous # oem_4 is [
+alt + i	                : komorebic cycle-stack next # oem_6 is ]
+
+# Resize
+# alt + left                 : komorebic resize-edge left increase
+# alt + down                 : komorebic resize-edge down increase
+# alt + up                   : komorebic resize-edge up increase
+# alt + right                : komorebic resize-edge right increase
+# ctrl+alt + oem_plus          : komorebic resize-axis horizontal increase
+# ctrl+alt + oem_minus         : komorebic resize-axis horizontal decrease
+# alt + oem_plus		: komorebic resize-axis vertical increase
+# alt + oem_minus		: komorebic resize-axis vertical decrease
+
+
+
+# Manipulate windows
+alt + shift + t         : komorebic toggle-float
+alt + f                 : komorebic toggle-monocle
+alt + shift + f         : komorebic toggle-maximize
+
+# Window manager options
+alt + shift + r         : komorebic retile
+alt + shift + p         : komorebic toggle-pause
+
+# Layouts
+# alt + x                 : komorebic flip-layout horizontal
+# alt + y                 : komorebic flip-layout vertical
+
+# Swap Monitors
+alt + f21               : komorebic swap-workspaces-with-monitor 1
+
+# Left Monitor Workspaces
+alt + 1                 : komorebic focus-monitor-workspace 1 0
+alt + 2                 : komorebic focus-monitor-workspace 1 1
+alt + 3                 : komorebic focus-monitor-workspace 1 2
+alt + 4                 : komorebic focus-monitor-workspace 1 3
+alt + 5                 : komorebic focus-monitor-workspace 1 4
+
+# Right Monitor Workspaces
+alt + 6                 : komorebic focus-monitor-workspace 0 0
+alt + 7                 : komorebic focus-monitor-workspace 0 1
+alt + 8                 : komorebic focus-monitor-workspace 0 2
+alt + 9                 : komorebic focus-monitor-workspace 0 3
+alt + 0                 : komorebic focus-monitor-workspace 0 4
+
+# Move windows to left monitor workspaces
+alt + shift + 1         : komorebic send-to-monitor-workspace 1 0
+alt + shift + 2         : komorebic send-to-monitor-workspace 1 1
+alt + shift + 3         : komorebic send-to-monitor-workspace 1 2
+alt + shift + 4         : komorebic send-to-monitor-workspace 1 3
+alt + shift + 5         : komorebic send-to-monitor-workspace 1 4
+
+# Move windows to main monitor workspaces
+alt + shift + 6         : komorebic send-to-monitor-workspace 0 0
+alt + shift + 7         : komorebic send-to-monitor-workspace 0 1 
+alt + shift + 8         : komorebic send-to-monitor-workspace 0 2 
+alt + shift + 9         : komorebic send-to-monitor-workspace 0 3
+alt + shift + 0         : komorebic send-to-monitor-workspace 0 4
+
+###
+advanced workspace swapping
+specific monitor, specific workspace on specific monitor, named workspaces etc
+###
+
+###
+# *FOCUSING SPECIFIC WORKSPACES
+focus-monitor-workspace
+    - specific workspace on specific monitor
+    - args:  <monitor index> <workspace index>
+
+focus-named-workspace
+    - arg: <workspace name>
+
+move-to-named-workspace
+    - arg: <workspace name>
+
+send-to-monitor-workspace
+    - arg: <monitor index> <workspace index>
+
+send-to-named-workspace
+    -arg: <workspace name>
+
+
+    -arg: <>
+
+
+cycle-move-to-workspace
+    -arg <previous or next>
+    
+cycle-send-to-workspace
+    -arg <previous or next>
+    
+cycle-workpace
+    -arg <previous or next>
+
+focus-last-workspace
+
+! can use for toggling a todoist on a side
+monitor-work-area-offset
+    - args: <monitor index> <left> <top> <right> <bottom>
+
+cycle-monitor
+    - args: <previous next>
+
+    
+cycle-move-to-monitor
+    - args: <previous next>
+
+cycle-send-to-monitor
+    - args: <previous next>
+
+focus-monitor
+    - args: <monitor index>
+    
+move-to-monitor
+    - args: <monitor index>
+
+send-to-monitor
+    - args: <monitor index>
+
+focus-workspaces
+    - focus specified workspace on ALL monitors
+    - args: <monitor index>
+###
