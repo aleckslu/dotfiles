@@ -6,18 +6,20 @@
 local keymap = vim.keymap
 
 -- note: [[ delete/unset/disable lazyvim defaults ]]
+
+keymap.del({ "n", "x" }, "j")
+keymap.del({ "n", "x" }, "<Down>")
+keymap.del({ "n", "x" }, "k")
+keymap.del({ "n", "x" }, "<Up>")
 keymap.del({ "n", "i", "v" }, "<a-j>")
 keymap.del({ "n", "i", "v" }, "<A-k>")
-keymap.del("n", "<leader>l")
-keymap.del("n", "<leader>`")
-keymap.del("n", "<leader>qq") -- Toggle Background
--- keymap.del("n", "<leader>bd") -- Buf Quit
+keymap.del("n", "<leader>l") -- :Lazy
+keymap.del("n", "<leader>`") -- Open other Buffer
+keymap.del("n", "<leader>qq") -- :qa
+keymap.del("n", "<leader>bd") -- Buf Quit
 keymap.del("n", "<leader>ub") -- Toggle Background
 keymap.del("n", "<leader>ul") -- Toggle Line Numbers
 keymap.del("n", "<leader>uL") -- Toggle Relative Line Numbers
--- LazyVim.toggle.map("n", "<leader>ub") -- Toggle Background
--- LazyVim.toggle.map("n", "<leader>ul") -- Toggle Line Numbers
--- LazyVim.toggle.map("n", "<leader>uL") -- Toggle Relative Line Numbers
 
 -- NOTE: [[ KEYMAPS/REMAPS ]]
 
@@ -27,9 +29,10 @@ keymap.set({ "n", "v" }, ":", ";", { noremap = true })
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 keymap.set("n", "U", "<C-r>")
+keymap.set("n", "<leader>q", LazyVim.ui.bufremove, { desc = "Delete Buf" })
 
 -- Yank/Delete/Paste
--- keymap.set({ "n", "x" }, "x", '"_x')
+keymap.set({ "n", "x" }, "x", '"_x')
 -- -- map({ "n", "x" }, "<leader>d", [["_d]])
 -- -- set({ 'n', 'v' }, '<leader>D', [["_D]], { desc = '[D] into Void' }) -- Existing keymap LSP: Type Def
 -- keymap.set("x", "<leader>P", [["_dP]])
@@ -46,7 +49,7 @@ keymap.set(
   { desc = "[Y]ank [F]ilepath", silent = true }
 )
 -- yank parent dir path
-local function yank_dir_path()
+keymap.set("n", "<leader>yd", function()
   local fullpath = vim.api.nvim_buf_get_name(0)
   if fullpath == "" then
     return
@@ -55,8 +58,7 @@ local function yank_dir_path()
   dir = vim.fn.fnamemodify(dir, ":p:h")
   vim.fn.setreg("+", dir)
   print("Yanked parent path to system clipboard: " .. dir)
-end
-keymap.set("n", "<leader>yd", yank_dir_path, { desc = "[Y]ank [D]ir Path" })
+end, { desc = "[Y]ank [D]ir Path" })
 
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Line Down", silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Line Up", silent = true })
@@ -94,4 +96,3 @@ keymap.set("n", "<leader>le", ":lua vim.print(vim.env.)<LEFT>", { desc = "[E]nvs
 
 keymap.set("n", "Q", "<nop>")
 keymap.set({ "i", "c", "t", "v" }, "<F13>", "<nop>")
--- keymap.set("n", "<leader>q", LazyVim.ui.bufremove, { desc = "Quit Buf" })

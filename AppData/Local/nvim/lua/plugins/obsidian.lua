@@ -2,10 +2,11 @@ local hour_offset = 5 -- hour of day a new "day" starts
 local daily_time_sec = os.time() - hour_offset * 3600
 local daily_date = os.date("%Y-%m-%d", daily_time_sec)
 local daily_name = daily_date .. ".md"
+local obs_daily_vault_path = vim.env.OBSIDIAN_PERSONAL_VAULT or ""
 _G.cur_daily = {
   date = daily_date,
   name = daily_name,
-  path = vim.env.OBSIDIAN_PERSONAL_VAULT .. "\\Daily\\" .. daily_name,
+  path = obs_daily_vault_path .. "\\Daily\\" .. daily_name,
   last_cursor_pos = { 21, 0 },
   seconds = daily_time_sec,
 }
@@ -23,16 +24,6 @@ return {
       return vim.fn.has("win32") == 1
     end,
     keys = {
-      -- INFO: useful funcs require('obsidian').util...
-      -- resolve_date_macro
-      -- strip_whitepsace
-      -- toggle_checkbox
-      -- url_encode
-      -- url_decode
-      -- working_day_after
-      -- working_day_before
-      -- :ObsidianToday -1
-      -- :ObsidianYesterday & :ObsidianTomorrow differentiates between weekday and weekennds
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
       { "<leader>oE", "<CMD>ObsidianExtractNote<CR>", desc = "[E]xtract Note", ft = "markdown" },
@@ -75,7 +66,7 @@ return {
           vim.api.nvim_put({ "- 🚽" }, put_type, true, true)
         end,
         ft = "markdown",
-        desc = "[P]otty",
+        desc = "[P]ot",
       },
       {
         "<leader>or",
@@ -221,7 +212,7 @@ return {
         ["<leader>oy"] = {
           action = function()
             if cur_daily.seconds then
-              local path = vim.env.OBSIDIAN_PERSONAL_VAULT
+              local path = obs_daily_vault_path
                 .. "\\Daily\\"
                 .. os.date("%Y-%m-%d", cur_daily.seconds - 86400)
                 .. ".md"
@@ -233,7 +224,7 @@ return {
         ["<leader>oY"] = {
           action = function()
             if cur_daily.seconds then
-              local path = vim.env.OBSIDIAN_PERSONAL_VAULT
+              local path = obs_daily_vault_path
                 .. "\\Daily\\"
                 .. os.date("%Y-%m-%d", cur_daily.seconds + 86400)
                 .. ".md"
@@ -309,30 +300,8 @@ return {
     "OXY2DEV/markview.nvim",
     lazy = false, -- Recommended
     opts = {
-      -- modes = { 'n', 'no', 'c' },
-      -- hybrid_modes = { 'n' },
-      -- callbacks = {
-      --   on_enable = function(_, win)
-      --     vim.wo[win].conceallevel = 2
-      --     vim.wo[win].concealcursor = 'c'
-      --   end,
-      -- },
-      -- headings = presets.headings.glow_labels,
-
       checkboxes = {
         enable = false,
-        -- checked = {
-        --   text = '',
-        --   hl = 'MarkviewCheckboxChecked',
-        -- },
-        -- unchecked = {
-        --   text = '󰄱',
-        --   hl = 'MarkviewCheckboxUnchecked',
-        -- },
-        -- pending = {
-        --   text = '',
-        --   hl = 'MarkviewCheckboxPending',
-        -- },
       },
       list_items = {
         enable = false,
@@ -345,51 +314,7 @@ return {
         -- marker_dot = {},
       },
     },
-    -- config = function()
-    --   -- local markview = require 'markview'
-    --   -- local presets = require 'markview.presets'
-    --   return require("markview").setup({
-    --     -- modes = { 'n', 'no', 'c' },
-    --     -- hybrid_modes = { 'n' },
-    --     -- callbacks = {
-    --     --   on_enable = function(_, win)
-    --     --     vim.wo[win].conceallevel = 2
-    --     --     vim.wo[win].concealcursor = 'c'
-    --     --   end,
-    --     -- },
-    --     -- headings = presets.headings.glow_labels,
-    --
-    --     checkboxes = {
-    --       enable = false,
-    --       -- checked = {
-    --       --   text = '',
-    --       --   hl = 'MarkviewCheckboxChecked',
-    --       -- },
-    --       -- unchecked = {
-    --       --   text = '󰄱',
-    --       --   hl = 'MarkviewCheckboxUnchecked',
-    --       -- },
-    --       -- pending = {
-    --       --   text = '',
-    --       --   hl = 'MarkviewCheckboxPending',
-    --       -- },
-    --     },
-    --     list_items = {
-    --       enable = false,
-    --       -- marker_minus = {
-    --       --   -- text = '',
-    --       --   hl = nil,
-    --       -- },
-    --       -- marker_plus = {},
-    --       -- marker_star = {},
-    --       -- marker_dot = {},
-    --     },
-    --   })
-    -- end,
     dependencies = {
-      -- You will not need this if you installed the
-      -- parsers manually
-      -- Or if the parsers are in your $RUNTIMEPATH
       "nvim-treesitter/nvim-treesitter",
       -- "nvim-tree/nvim-web-devicons",
       "echasnovski/mini.icons",

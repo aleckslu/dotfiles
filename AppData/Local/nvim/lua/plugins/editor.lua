@@ -107,6 +107,8 @@ return {
           { "<leader>ub", hidden = true },
           { "<leader>ul", hidden = true },
           { "<leader>uL", hidden = true },
+          { "<leader>q", hidden = true },
+          { "<F13>", mode = { "i", "c", "t", "v" }, hidden = true },
         },
       },
     },

@@ -16,43 +16,43 @@ local cur_daily = _G.cur_daily
 
 -- FIX: doesn't work with fns that expect args
 -- wrapper to time performance of multiple funcs
-function M.time_funcs_callbacks(...)
-  local funcs = { ... }
-  return function()
-    local start = vim.fn.reltime()
-    for _, fn in ipairs(funcs) do
-      fn("# Notes", 0)
-    end
-    local elapsed = vim.fn.reltimestr(vim.fn.reltime(start))
-    return "time elapsed for functions: " .. elapsed
-  end
-end
+-- function M.time_funcs_callbacks(...)
+--   local funcs = { ... }
+--   return function()
+--     local start = vim.fn.reltime()
+--     for _, fn in ipairs(funcs) do
+--       fn("# Notes", 0)
+--     end
+--     local elapsed = vim.fn.reltimestr(vim.fn.reltime(start))
+--     return "time elapsed for functions: " .. elapsed
+--   end
+-- end
 
 -- wrapper to time performance of a singlefunc
 -- NOTE: adding closure just creates inaccurate timing
 ---- local start = vim.fn.reltime()
 ---- local elapsed = vim.fn.reltimestr(vim.fn.reltime(start))
-function M.time_func(fn, ...)
-  local start_time = nil
-  local end_time = nil
-  local elapsed_time = nil
-  start_time = vim.fn.reltime()
-  fn(...)
-  end_time = vim.fn.reltime(start_time)
-  elapsed_time = vim.fn.reltimestr(end_time)
-  return "time elapsed for functions: " .. elapsed_time
-end
+-- function M.time_func(fn, ...)
+--   local start_time = nil
+--   local end_time = nil
+--   local elapsed_time = nil
+--   start_time = vim.fn.reltime()
+--   fn(...)
+--   end_time = vim.fn.reltime(start_time)
+--   elapsed_time = vim.fn.reltimestr(end_time)
+--   return "time elapsed for functions: " .. elapsed_time
+-- end
 
-function M.time_func_callback(fn, ...)
-  local args = { ... }
-  return function()
-    local start = vim.fn.reltime()
-    -- NOTE: unpack will make timing slightly inaccurate
-    fn(unpack(args))
-    local elapsed = vim.fn.reltimestr(vim.fn.reltime(start))
-    return "time elapsed for functions: " .. elapsed
-  end
-end
+-- function M.time_func_callback(fn, ...)
+--   local args = { ... }
+--   return function()
+--     local start = vim.fn.reltime()
+--     -- NOTE: unpack will make timing slightly inaccurate
+--     fn(unpack(args))
+--     local elapsed = vim.fn.reltimestr(vim.fn.reltime(start))
+--     return "time elapsed for functions: " .. elapsed
+--   end
+-- end
 
 -- NOTE : Jump to first empty line after a pattern
 function M.search_empty_line_pos(pattern)
@@ -72,21 +72,21 @@ end
 --   col = 20
 --   zindex=zindex,
 -- })
-function M.toggle_list_and_boxes()
-  local line = vim.api.nvim_get_current_line()
-  local indent = line:match("^%s*")
-  line = vim.trim(line)
-
-  if line:sub(1, 6) == "- [ ] " then
-    vim.api.nvim_set_current_line(indent .. "- [x] " .. line:sub(7))
-  elseif line:sub(1, 6) == "- [x] " then
-    vim.api.nvim_set_current_line(indent .. "- " .. line:sub(7))
-  elseif line:sub(1, 2) == "- " and line:sub(3, 3) ~= "[" and line:sub(5, 6) ~= "] " then
-    vim.api.nvim_set_current_line(indent .. "- [ ] " .. line:sub(2))
-  elseif not line:sub(1, 1):match("[<>-]") then
-    vim.api.nvim_set_current_line(indent .. "- " .. line)
-  end
-end
+-- function M.toggle_list_and_boxes()
+--   local line = vim.api.nvim_get_current_line()
+--   local indent = line:match("^%s*")
+--   line = vim.trim(line)
+--
+--   if line:sub(1, 6) == "- [ ] " then
+--     vim.api.nvim_set_current_line(indent .. "- [x] " .. line:sub(7))
+--   elseif line:sub(1, 6) == "- [x] " then
+--     vim.api.nvim_set_current_line(indent .. "- " .. line:sub(7))
+--   elseif line:sub(1, 2) == "- " and line:sub(3, 3) ~= "[" and line:sub(5, 6) ~= "] " then
+--     vim.api.nvim_set_current_line(indent .. "- [ ] " .. line:sub(2))
+--   elseif not line:sub(1, 1):match("[<>-]") then
+--     vim.api.nvim_set_current_line(indent .. "- " .. line)
+--   end
+-- end
 
 function M.is_line_callout(line_num, buf)
   buf = buf or 0
