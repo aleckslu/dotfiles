@@ -1,5 +1,5 @@
-# oh-my-posh init pwsh --config "$HOME\.config\omp-themes\0-alecks.omp.json" | Invoke-Expression
-oh-my-posh init pwsh --config "$HOME\.config\omp-themes\hul10.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$HOME\.config\omp-themes\0-alecks.omp.json" | Invoke-Expression
+# oh-my-posh init pwsh --config "$HOME\.config\omp-themes\hul10.omp.json" | Invoke-Expression
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json" | Invoke-Expression
 
 ### Environment Variables
@@ -10,6 +10,14 @@ oh-my-posh init pwsh --config "$HOME\.config\omp-themes\hul10.omp.json" | Invoke
 
 # Common Paths
 # $CARGO_CONFIG = "$Env:USERPROFILE\Cargo.toml"
+#               *$XDG_CONFIG_HOME*
+# Unix:         ~/.config         
+# Windows:      ~/AppData/Local   
+#
+#
+# *$XDG_STATE_HOME* ~/AppData/Local
+# *$XDG_DATA_HOME* ~/AppData/Local
+# `$NVIM_LOG_FILE` ~/AppData/Local/nvim-data/log
 $CONFIG = $Env:XDG_CONFIG_HOME
 $DOTFILES = "$CONFIG\dotfiles"
 $Env:DOTFILES = $DOTFILES

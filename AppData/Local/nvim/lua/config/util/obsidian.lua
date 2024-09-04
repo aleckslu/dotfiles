@@ -152,63 +152,63 @@ function M.date_to_sec(date)
   })
 end
 
-function M.get_date_range(start_date, end_date, opts)
-  local default_opts = {
-    to_file_path = false,
-  }
-  opts = vim.tbl_extend("force", default_opts, opts or {})
-  local date_to_sec = M.date_to_sec
-  local start_date_sec = date_to_sec(start_date)
-  local end_date_sec = date_to_sec(end_date) or _G.cur_daily.seconds
-  local os_date = os.date
-  local dates = {}
-  -- get entire path to obsidian note for that date
-  local function get_path(date_sec)
-    return vim.env.OBSIDIAN_PERSONAL_VAULT .. "\\Daily\\" .. os_date("%Y-%m-%d", date_sec) .. "md"
-  end
-  -- get string of date
-  local function get_datestr(date_sec)
-    return os_date("%Y-%m-%d", date_sec)
-  end
-  -- get_str = one of two fns from above to use depending on opts set
-  local get_str = opts.to_file_path or get_path and get_datestr
-  for date_sec = start_date_sec, end_date_sec, 86400 do
-    table.insert(dates, get_str(date_sec))
-  end
-  return dates
-end
+-- function M.get_date_range(start_date, end_date, opts)
+--   local default_opts = {
+--     to_file_path = false,
+--   }
+--   opts = vim.tbl_extend("force", default_opts, opts or {})
+--   local date_to_sec = M.date_to_sec
+--   local start_date_sec = date_to_sec(start_date)
+--   local end_date_sec = date_to_sec(end_date) or _G.cur_daily.seconds
+--   local os_date = os.date
+--   local dates = {}
+--   -- get entire path to obsidian note for that date
+--   local function get_path(date_sec)
+--     return vim.env.OBSIDIAN_PERSONAL_VAULT .. "\\Daily\\" .. os_date("%Y-%m-%d", date_sec) .. "md"
+--   end
+--   -- get string of date
+--   local function get_datestr(date_sec)
+--     return os_date("%Y-%m-%d", date_sec)
+--   end
+--   -- get_str = one of two fns from above to use depending on opts set
+--   local get_str = opts.to_file_path or get_path and get_datestr
+--   for date_sec = start_date_sec, end_date_sec, 86400 do
+--     table.insert(dates, get_str(date_sec))
+--   end
+--   return dates
+-- end
 
 -- TODO:
 -- PERFORMANCE: use vim.uv instead
-function M.collect_sleep_data(pattern, start_date, end_date, opts)
-  local default_opts = {
-    max_range = true,
-  }
-  opts = opts and vim.tbl_extend("force", opts, default_opts) or default_opts
-  local note_list = M.get_date_range(start_date, end_date, { to_file_path = true })
-  local result = {}
-  -- local output = io.open(output_file, 'w')
-  -- if not output then
-  --   vim.notify('Failed to open output file: ' .. output_file, vim.log.levels.ERROR)
-  --   return
-  -- end
-  for _, note_path in ipairs(note_list) do
-    local input = io.open(note_path, "r")
-    if input then
-      for line in input:lines() do
-        if line:match(pattern) then
-          -- output:write(line .. '\n')
-          print("hi")
-        end
-      end
-      input:close()
-    else
-      vim.notify("Failed to open input file: " .. note_path, vim.log.levels.ERROR)
-    end
-  end
-  return result
-  -- output:close()
-end
+-- function M.collect_sleep_data(pattern, start_date, end_date, opts)
+--   local default_opts = {
+--     max_range = true,
+--   }
+--   opts = opts and vim.tbl_extend("force", opts, default_opts) or default_opts
+--   local note_list = M.get_date_range(start_date, end_date, { to_file_path = true })
+--   local result = {}
+--   -- local output = io.open(output_file, 'w')
+--   -- if not output then
+--   --   vim.notify('Failed to open output file: ' .. output_file, vim.log.levels.ERROR)
+--   --   return
+--   -- end
+--   for _, note_path in ipairs(note_list) do
+--     local input = io.open(note_path, "r")
+--     if input then
+--       for line in input:lines() do
+--         if line:match(pattern) then
+--           -- output:write(line .. '\n')
+--           print("hi")
+--         end
+--       end
+--       input:close()
+--     else
+--       vim.notify("Failed to open input file: " .. note_path, vim.log.levels.ERROR)
+--     end
+--   end
+--   return result
+--   -- output:close()
+-- end
 
 -- set & save cursor position on first bufread
 -- NOTE: BufRead is the same as BufReadPost

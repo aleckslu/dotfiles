@@ -158,9 +158,7 @@ return {
           -- NOTE: the 'char' value has to be a single character, and the highlight groups are defined below.
           [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
           ["x"] = { char = "", hl_group = "ObsidianDone" },
-          -- ['x'] = { char = '', hl_group = 'WhichKeyIconGreen' },
-          -- ['>'] = { char = '', hl_group = 'WhichKeyIconCyan' },
-          [">"] = { char = "", hl_group = "CmpItemKindType" },
+          [">"] = { char = "", hl_group = "@markup.italic" },
           ["*"] = { char = "✪", hl_group = "MarkviewBlockQuoteOk" },
           -- ['~'] = { char = '󰰱', hl_group = 'ObsidianTilde' },
           -- ['!'] = { char = '', hl_group = 'ObsidianImportant' },
@@ -285,16 +283,6 @@ return {
     end,
   },
 
-  -- marksman
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        marksman = {},
-      },
-    },
-  },
-
   -- [[ MARKVIEW.NVIM ]]
   {
     "OXY2DEV/markview.nvim",
@@ -316,8 +304,8 @@ return {
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      -- "nvim-tree/nvim-web-devicons",
-      "echasnovski/mini.icons",
+      "nvim-tree/nvim-web-devicons",
+      -- "echasnovski/mini.icons",
     },
   },
 }
