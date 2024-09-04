@@ -1,4 +1,5 @@
-oh-my-posh init pwsh --config "$HOME\.config\omp-themes\0-alecks.omp.json" | Invoke-Expression
+# oh-my-posh init pwsh --config "$HOME\.config\omp-themes\0-alecks.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$HOME\.config\omp-themes\hul10.omp.json" | Invoke-Expression
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json" | Invoke-Expression
 
 ### Environment Variables
