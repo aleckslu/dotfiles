@@ -194,12 +194,12 @@ return {
           opts = { noremap = false, expr = true, buffer = true },
         },
         -- Toggle check-boxes.
-        ["<leader>oc"] = {
-          action = function()
-            return require("obsidian").util.toggle_checkbox()
-          end,
-          opts = { buffer = true },
-        },
+        -- ["<leader>oc"] = {
+        --   action = function()
+        --     return require("obsidian").util.toggle_checkbox()
+        --   end,
+        --   opts = { buffer = true },
+        -- },
         -- Smart action depending on context, either follow link or toggle checkbox.
         ["<cr>"] = {
           action = function()
@@ -252,7 +252,7 @@ return {
       })
 
       require("obsidian").setup(opts)
-      vim.opt.conceallevel = 2
+      -- vim.opt.conceallevel = 2
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -293,13 +293,6 @@ return {
       },
       list_items = {
         enable = false,
-        -- marker_minus = {
-        --   -- text = '',
-        --   hl = nil,
-        -- },
-        -- marker_plus = {},
-        -- marker_star = {},
-        -- marker_dot = {},
       },
     },
     dependencies = {
