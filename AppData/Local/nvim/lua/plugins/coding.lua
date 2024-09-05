@@ -5,8 +5,22 @@ return {
     dependencies = {
       "hrsh7th/cmp-cmdline", -- for cmdline autocompletion
     },
-    opts = function()
+    opts = function(_, opts)
       local cmp = require("cmp")
+      opts.completion.completeopt = vim.o.completeopt
+      -- opts.preselect = cmp.PreselectMode.None
+      opts.mapping = cmp.mapping.preset.insert({
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
+        ["<S-CR>"] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      })
 
       cmp.setup.cmdline("/", {
         mapping = require("cmp").mapping.preset.cmdline(),

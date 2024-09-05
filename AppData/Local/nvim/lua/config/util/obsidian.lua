@@ -54,12 +54,12 @@ local cur_daily = _G.cur_daily
 --   end
 -- end
 
--- NOTE : Jump to first empty line after a pattern
-function M.search_empty_line_pos(pattern)
-  pattern = pattern or ""
-  vim.fn.search(pattern, "w")
-  return vim.fn.searchpos("^\\s*$", "wc")
-end
+-- -- NOTE : Jump to first empty line after a pattern
+-- function M.search_empty_line_pos(pattern)
+--   pattern = pattern or ""
+--   vim.fn.search(pattern, "w")
+--   return vim.fn.searchpos("^\\s*$", "wc")
+-- end
 
 -- FIX: bad. try this instead:
 -- vim.api.nvim_open_win(buffer, true, {
@@ -210,31 +210,31 @@ end
 --   -- output:close()
 -- end
 
--- set & save cursor position on first bufread
--- NOTE: BufRead is the same as BufReadPost
-vim.api.nvim_create_autocmd("BufRead", {
-  pattern = { "*" .. cur_daily.name },
-  once = true,
-  callback = function()
-    cur_daily.last_cursor_pos = M.search_empty_line_pos("^# Notes")
-  end,
-})
+-- -- set & save cursor position on first bufread
+-- -- NOTE: BufRead is the same as BufReadPost
+-- vim.api.nvim_create_autocmd("BufRead", {
+--   pattern = { "*" .. cur_daily.name },
+--   -- once = true,
+--   callback = function()
+--     cur_daily.last_cursor_pos = M.search_empty_line_pos("^# Notes")
+--   end,
+-- })
 
--- set cursor position on bufread (when buffer is first opened)
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = { "*" .. cur_daily.name },
-  callback = function()
-    vim.api.nvim_win_set_cursor(0, cur_daily.last_cursor_pos)
-  end,
-})
+-- -- set cursor position on bufread (when buffer is first opened)
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   pattern = { "*" .. cur_daily.name },
+--   callback = function()
+--     vim.api.nvim_win_set_cursor(0, cur_daily.last_cursor_pos)
+--   end,
+-- })
 
--- get & save cursor pos on bufdelete
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = { "*" .. cur_daily.name },
-  callback = function()
-    cur_daily.last_cursor_pos = vim.api.nvim_win_get_cursor(0)
-  end,
-})
+-- -- get & save cursor pos on bufdelete
+-- vim.api.nvim_create_autocmd("BufWinLeave", {
+--   pattern = { "*" .. cur_daily.name },
+--   callback = function()
+--     cur_daily.last_cursor_pos = vim.api.nvim_win_get_cursor(0)
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --   pattern = { vim.env.OBSIDIAN_VAULT_HOME:gsub("\\", "/") .. "/*" },

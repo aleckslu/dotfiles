@@ -30,9 +30,9 @@ keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 keymap.set("n", "U", "<C-r>")
 keymap.set("n", "<leader>q", LazyVim.ui.bufremove, { desc = "Delete Buf" })
+keymap.set({ "n", "x" }, "x", '"_x')
 
 -- Yank/Delete/Paste
-keymap.set({ "n", "x" }, "x", '"_x')
 -- -- map({ "n", "x" }, "<leader>d", [["_d]])
 -- -- set({ 'n', 'v' }, '<leader>D', [["_D]], { desc = '[D] into Void' }) -- Existing keymap LSP: Type Def
 -- keymap.set("x", "<leader>P", [["_dP]])

@@ -82,7 +82,7 @@ $Env:IGNORE_DIRS = ".git/;.svn/;.hg/;node_modules/;dist/;target/;build/;out/;.DS
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile))
 {
-	Import-Module "$ChocolateyProfile"
+  Import-Module "$ChocolateyProfile"
 }
 
 
@@ -97,154 +97,161 @@ Set-Alias grep Select-String
 Set-Alias owner Get-Acl
 Set-Alias oc onecommander.exe
 Set-Alias ls eza.exe
+# Set-Alias vim nvim.exe
 
 ### Custom Functions
+
+function vim
+{
+  nvim $args
+}
+
 function yasb
 {
-	param(
-		[switch]$r
-	)
-	if($r)
-	{
-		Stop-Process -Name python
-	}
-	Start-Process -FilePath "python" -ArgumentList "$Env:USERPROFILE\repositories\yasb\src\main.py" -WindowStyle Hidden
+  param(
+    [switch]$r
+  )
+  if($r)
+  {
+    Stop-Process -Name python
+  }
+  Start-Process -FilePath "python" -ArgumentList "$Env:USERPROFILE\repositories\yasb\src\main.py" -WindowStyle Hidden
 }
 
 function keyfreq
 {
-	param(
-		[switch]$s,
-		[switch]$r
-	)
+  param(
+    [switch]$s,
+    [switch]$r
+  )
 
-	if ($s)
-	{
-		Get-Content $KFREQ_JSON | jq '._TOTAL_LOG | to_entries | sort_by(.value) | from_entries'
-	} elseif ($r)
-	{
-		Get-Content $KFREQ_JSON | jq '._TOTAL_LOG | to_entries | sort_by(.value) | reverse | from_entries'
-	} else
-	{
-		python $Env:USERPROFILE\repositories\projects\keyfreq\main.py
-	}
+  if ($s)
+  {
+    Get-Content $KFREQ_JSON | jq '._TOTAL_LOG | to_entries | sort_by(.value) | from_entries'
+  } elseif ($r)
+  {
+    Get-Content $KFREQ_JSON | jq '._TOTAL_LOG | to_entries | sort_by(.value) | reverse | from_entries'
+  } else
+  {
+    python $Env:USERPROFILE\repositories\projects\keyfreq\main.py
+  }
 }
 Set-Alias -Name kf -Value keyfreq
 
 function fonts
 {
-	[System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+  [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 	(New-Object System.Drawing.Text.InstalledFontCollection).Families
 }
 
 function killWHKD
 {
-	Stop-Process -Name whkd -Force -ErrorAction SilentlyContinue
+  Stop-Process -Name whkd -Force -ErrorAction SilentlyContinue
 }
 
 function killKomo
 {
-	if (Get-Process -Name "whkd" -ErrorAction SilentlyContinue)
-	{
-		killWHKD
-	}
-	if (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)
-	{
-		Stop-Process -Name komorebi -Force 
-	}
+  if (Get-Process -Name "whkd" -ErrorAction SilentlyContinue)
+  {
+    killWHKD
+  }
+  if (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)
+  {
+    Stop-Process -Name komorebi -Force 
+  }
 }
 Set-Alias -Name stopkomo -Value killKomo
 
 function startWHKD
 {
-	Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
+  Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
 }
 
 function startKomo
 {
-	param(
-		[switch]$p, #stop python processes first
-		[switch]$a #run as admin
-	)
+  param(
+    [switch]$p, #stop python processes first
+    [switch]$a #run as admin
+  )
 
-	if (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)
-	{
-		Write-Host "Komorebi still running, Killing Now..."
-		killKomo
-		Write-Host "Stopped Komorebi"
-	}
-	if($p)
-	{
-		if (Get-Process -Name python -ErrorAction SilentlyContinue)
-		{
-			Write-Host "Stopping Python Processes..."
-			Stop-Process -Name python -Force #-ErrorAction
-			Wait-Process -Name python -Timeout 3
-		}
-	}
-	if($a)
-	{
-		Write-Host "Debug komohome: $KOMOHOME"
-		Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
-		StartWHKD
-	} else
-	{
-		komorebic start -c "$KOMOHOME\komorebi.json" --whkd
-	}
-	Write-Host "Komorebi started"
-	. "$DOTFILES\pwsh\komorebi.generated.ps1"
-	Write-Host "Starting YASB..."
-	yasb
+  if (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)
+  {
+    Write-Host "Komorebi still running, Killing Now..."
+    killKomo
+    Write-Host "Stopped Komorebi"
+  }
+  if($p)
+  {
+    if (Get-Process -Name python -ErrorAction SilentlyContinue)
+    {
+      Write-Host "Stopping Python Processes..."
+      Stop-Process -Name python -Force #-ErrorAction
+      Wait-Process -Name python -Timeout 3
+    }
+  }
+  if($a)
+  {
+    Write-Host "Debug komohome: $KOMOHOME"
+    Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
+    StartWHKD
+  } else
+  {
+    komorebic start -c "$KOMOHOME\komorebi.json" --whkd
+  }
+  Write-Host "Komorebi started"
+  . "$DOTFILES\pwsh\komorebi.generated.ps1"
+  Write-Host "Starting YASB..."
+  yasb
 }
 
 function rcopy
 {
-	Write-Host $($args[0])
-	Write-Host $($args[1])
-	robocopy $($args[0]) $($args[1]) /W:0 /R:3 /E /V /XJD /TEE /ETA /DCOPY:T /FP /XA:O /MT:15
+  Write-Host $($args[0])
+  Write-Host $($args[1])
+  robocopy $($args[0]) $($args[1]) /W:0 /R:3 /E /V /XJD /TEE /ETA /DCOPY:T /FP /XA:O /MT:15
 }
 
 function test-service
 {
-	param (
-		[string]$serviceName
-	)
-	$service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
-	return -not ($null -eq $service) -and $service.Status -eq 'Running'
+  param (
+    [string]$serviceName
+  )
+  $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
+  return -not ($null -eq $service) -and $service.Status -eq 'Running'
 }
 
 function nvimf
 {
-	$fzfInput = (fzf)
-	if ($fzfInput)
-	{
-		$path = Convert-Path($fzfInput)
-		if (Test-Path -Path $path -PathType Container)
-		{
-			Set-Location $path
-		} else
-		{
-			$parentpath = Split-Path -Parent $path
-			$maxDepth = 3
-			$additionalGitDepth = 3
+  $fzfInput = (fzf)
+  if ($fzfInput)
+  {
+    $path = Convert-Path($fzfInput)
+    if (Test-Path -Path $path -PathType Container)
+    {
+      Set-Location $path
+    } else
+    {
+      $parentpath = Split-Path -Parent $path
+      $maxDepth = 3
+      $additionalGitDepth = 3
 
-			$parentpath = Find-ParentDirectory -FilePath $path -TargetDirectory '.git' -Depth $maxDepth -ReturnEndPath # -Log
-			$gitDir = Find-ParentDirectory -FilePath $path -TargetDirectory '.git' -Depth $additionalGitDepth # -Log
-			if ($gitDir)
-			{
-				$parentpath = $gitDir
-			}
+      $parentpath = Find-ParentDirectory -FilePath $path -TargetDirectory '.git' -Depth $maxDepth -ReturnEndPath # -Log
+      $gitDir = Find-ParentDirectory -FilePath $path -TargetDirectory '.git' -Depth $additionalGitDepth # -Log
+      if ($gitDir)
+      {
+        $parentpath = $gitDir
+      }
 			
-			# maxDepth - if .git found, cd to it, otherwise cd to maxDepth
-			# additionalGitDepth - if .glit found, cd to it, other just cd to maxDepth
-			if ($parentpath -ne $path)
-			{
-				__zoxide_z $parentpath
-			}
-		}
-		# Write-Host "nvim : $path"
-		nvim $path
-	}
+      # maxDepth - if .git found, cd to it, otherwise cd to maxDepth
+      # additionalGitDepth - if .glit found, cd to it, other just cd to maxDepth
+      if ($parentpath -ne $path)
+      {
+        __zoxide_z $parentpath
+      }
+    }
+    # Write-Host "nvim : $path"
+    nvim $path
+  }
 }
 
 # elseif ($parentpath -ne (''))
@@ -303,11 +310,11 @@ function nvimf
 
 function startAHK
 {
-	if ($AHK_MAIN)
-	{
-		Write-Host "Starting Main AHK Script..."
-		Start-Process "$AHK_MAIN"
-	}
+  if ($AHK_MAIN)
+  {
+    Write-Host "Starting Main AHK Script..."
+    Start-Process "$AHK_MAIN"
+  }
 }
 
 # Open Obsidian Vaults in Neovim
@@ -338,30 +345,30 @@ function startAHK
 # Define a function to compare two lists
 function comparelist
 {
-	param (
-		[string]$list1,
-		[string]$list2
-	)
+  param (
+    [string]$list1,
+    [string]$list2
+  )
 
-	# Convert the input strings into arrays of words/phrases
-	$array1 = $list1 -split "`n" | Where-Object { $_ -ne '' } | ForEach-Object { $_.Trim() }
-	$array2 = $list2 -split "`n" | Where-Object { $_ -ne '' } | ForEach-Object { $_.Trim()}
-	# Find words/phrases in array1 that are not in array2
-	$result = $array1 | Where-Object { $_ -NotIn $array2 }
-	# Output the result
-	return $result
+  # Convert the input strings into arrays of words/phrases
+  $array1 = $list1 -split "`n" | Where-Object { $_ -ne '' } | ForEach-Object { $_.Trim() }
+  $array2 = $list2 -split "`n" | Where-Object { $_ -ne '' } | ForEach-Object { $_.Trim()}
+  # Find words/phrases in array1 that are not in array2
+  $result = $array1 | Where-Object { $_ -NotIn $array2 }
+  # Output the result
+  return $result
 }
 
 function wingetup
 {
-	winget upgrade $args --accept-package-agreements --accept-source-agreements
+  winget upgrade $args --accept-package-agreements --accept-source-agreements
 }
 
 function updateAll
 {
-	## TODO: check of admin privaledges first
-	choco upgrade all -y
-	wingetup --all
+  ## TODO: check of admin privaledges first
+  choco upgrade all -y
+  wingetup --all
 }
 
 # function appsearch
@@ -385,116 +392,116 @@ function updateAll
 
 function Find-ParentDirectory
 {
-	param (
-		#[Parameter(Mandatory=$true, Position=0)]
-		[Parameter(Mandatory=$true)]
-		[Alias("p")]
-		[string]$FilePath,
+  param (
+    #[Parameter(Mandatory=$true, Position=0)]
+    [Parameter(Mandatory=$true)]
+    [Alias("p")]
+    [string]$FilePath,
         
-		[Parameter(Mandatory=$true)]
-		[Alias("dir")]
-		[string]$TargetDirectory,
+    [Parameter(Mandatory=$true)]
+    [Alias("dir")]
+    [string]$TargetDirectory,
         
-		[Alias("dep")]
-		[double]$Depth = [double]::PositiveInfinity,
+    [Alias("dep")]
+    [double]$Depth = [double]::PositiveInfinity,
 
-		[Alias("ex")]
-		[string[]]$Exclude = @(), #paths to exlude from search
+    [Alias("ex")]
+    [string[]]$Exclude = @(), #paths to exlude from search
 
-		[Alias('ret')]
-		[switch]$ReturnEndPath,
+    [Alias('ret')]
+    [switch]$ReturnEndPath,
 
-		[Alias('l')]
-		[switch]$Log
+    [Alias('l')]
+    [switch]$Log
 
-	)
+  )
 
-	### Log arguments
-	if ($Log)
-	{
-		Write-Host "[[ARGS:]]" -ForegroundColor Green
-		foreach ($param in $PSBoundParameters.Keys)
-		{
-			$arg = $PSBoundParameters[$param]
-			Write-Host "$param : $arg" -ForegroundColor Green
-		}
-		Write-Host "-------------------" -ForegroundColor Green
-	}
-	###
-
-	$alwaysExclude = $Env:USERPROFILE, 'C:\'
-	$absPath = [System.IO.Path]::GetFullPath($FilePath)
-	$pathRoot = [System.IO.Path]::GetPathRoot($absPath)
-	$currentDepth = 0
-
-	$currentDirectory = if (Test-Path -Path $absPath -PathType Container)
-	{
-		$absPath
-	} else
-	{
-		[System.IO.Path]::GetDirectoryName($absPath)
-	}
-	$currentParentDirectory = Split-Path -Parent $currentDirectory
-
-	while ($currentParentDirectory -ne $pathRoot -and -not ($alwaysExclude | Where-Object({$currentParentDirectory -eq $_})) -and ($currentDepth -lt $Depth))
-	{
-		### DEBUG
-		if ( $Log -and ($alwaysExclude | Where-Object {$currentParentDirectory -eq $_}))
+  ### Log arguments
+  if ($Log)
   {
-			Write-Host "Where Obj" -ForegroundColor Red
-			Write-Host ($alwaysExclude | Where-Object({$currentParentDirectory -eq $_})) -ForegroundColor Red
-			Write-Host "-----------" -ForegroundColor Red
-			Write-Host "Dir in Exclusion List: $currentParentDirectory" -ForegroundColor Red
-			Write-Host "current dir: $currentDirectory" -ForegroundColor Red
-		}
-		###
+    Write-Host "[[ARGS:]]" -ForegroundColor Green
+    foreach ($param in $PSBoundParameters.Keys)
+    {
+      $arg = $PSBoundParameters[$param]
+      Write-Host "$param : $arg" -ForegroundColor Green
+    }
+    Write-Host "-------------------" -ForegroundColor Green
+  }
+  ###
 
-		# Check if the target directory exists in the current directory
-		$targetPath = Join-Path -Path $currentDirectory -ChildPath $TargetDirectory
-		if ($Exclude | Where-Object( { $currentDirectory -like $_}))
-		{
+  $alwaysExclude = $Env:USERPROFILE, 'C:\'
+  $absPath = [System.IO.Path]::GetFullPath($FilePath)
+  $pathRoot = [System.IO.Path]::GetPathRoot($absPath)
+  $currentDepth = 0
 
-		} elseif (Test-Path -Path $targetPath -PathType Container)
-		{
-			if ($Log)
-			{ Write-Host "Found .git in: $currentDirectory" -ForegroundColor DarkGreen
-			}
-			return $currentDirectory
-		}
-		$currentDirectory = $currentParentDirectory
-		$currentParentDirectory = Split-Path -Parent $currentDirectory
-		$currentDepth++
-	}
-	# Return null if the target directory is not found
-	# or should i return empty string
-	if ($ReturnEndPath)
-	{
-		return $currentDirectory
-	}
-	return ''
+  $currentDirectory = if (Test-Path -Path $absPath -PathType Container)
+  {
+    $absPath
+  } else
+  {
+    [System.IO.Path]::GetDirectoryName($absPath)
+  }
+  $currentParentDirectory = Split-Path -Parent $currentDirectory
+
+  while ($currentParentDirectory -ne $pathRoot -and -not ($alwaysExclude | Where-Object({$currentParentDirectory -eq $_})) -and ($currentDepth -lt $Depth))
+  {
+    ### DEBUG
+    if ( $Log -and ($alwaysExclude | Where-Object {$currentParentDirectory -eq $_}))
+    {
+      Write-Host "Where Obj" -ForegroundColor Red
+      Write-Host ($alwaysExclude | Where-Object({$currentParentDirectory -eq $_})) -ForegroundColor Red
+      Write-Host "-----------" -ForegroundColor Red
+      Write-Host "Dir in Exclusion List: $currentParentDirectory" -ForegroundColor Red
+      Write-Host "current dir: $currentDirectory" -ForegroundColor Red
+    }
+    ###
+
+    # Check if the target directory exists in the current directory
+    $targetPath = Join-Path -Path $currentDirectory -ChildPath $TargetDirectory
+    if ($Exclude | Where-Object( { $currentDirectory -like $_}))
+    {
+
+    } elseif (Test-Path -Path $targetPath -PathType Container)
+    {
+      if ($Log)
+      { Write-Host "Found .git in: $currentDirectory" -ForegroundColor DarkGreen
+      }
+      return $currentDirectory
+    }
+    $currentDirectory = $currentParentDirectory
+    $currentParentDirectory = Split-Path -Parent $currentDirectory
+    $currentDepth++
+  }
+  # Return null if the target directory is not found
+  # or should i return empty string
+  if ($ReturnEndPath)
+  {
+    return $currentDirectory
+  }
+  return ''
 }
 
 function startup
 {
-	while (
-		-not (Get-Process -Name "Obsidian" -ErrorAction SilentlyContinue) 
-	)
-	{
-		Start-Sleep -Seconds 3
-	}
-	Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
-	Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
-	do
-	{
-		Write-Host "Waiting for Komorebi to start..."
-		Start-Sleep -Seconds 2
-	} while (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue))
-	Write-Host "Komorebi started"
-	. "$DOTFILES\pwsh\komorebi.generated.ps1"
-	Write-Host "Starting YASB & KeyFreq"
-	yasb
-	startAHK
-	keyfreq
+  while (
+    -not (Get-Process -Name "Obsidian" -ErrorAction SilentlyContinue) 
+  )
+  {
+    Start-Sleep -Seconds 3
+  }
+  Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
+  Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
+  do
+  {
+    Write-Host "Waiting for Komorebi to start..."
+    Start-Sleep -Seconds 2
+  } while (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue))
+  Write-Host "Komorebi started"
+  . "$DOTFILES\pwsh\komorebi.generated.ps1"
+  Write-Host "Starting YASB & KeyFreq"
+  yasb
+  startAHK
+  keyfreq
 }
 
 
@@ -613,7 +620,7 @@ function startup
 
 if (where.exe yazi)
 {
-	. $DOTFILES\pwsh\yazi-wrapper.ps1
+  . $DOTFILES\pwsh\yazi-wrapper.ps1
 }
 # Neovim Config Picker
 # . $DOTFILES\pwsh\Nvim-Profile-Switcher.ps1

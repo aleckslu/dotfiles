@@ -23,13 +23,30 @@ return {
       -- NOTE: add env vars to wsl and change the conditional check for environment var existance
       return vim.fn.has("win32") == 1
     end,
+
+    -- KEYMAPS
+    -- NOTE:
+    -- general conditionals:
+    --    - if cur line empty -> place on cur line
+    --    - else -> place next line
+    --    - INDENTS:
+    --        -
+    -- time: <general conditionals>
+    -- other bullets: <general conditionals>
+    --    - if cur line callout or list with no content -> concat with cur line
+    --        -> (`- ` or `> ` or `> * ` or `- [*] `)
+    --      - if next and prev line callout -> place in callout
+    -- callouts: <general conditionals>
+    --    - if cur line callout -> separate w/ time
+    --
+    -- line_is(line_num, or ['prev' || 'cur' || 'next']) => 'list' || 'checkbox' || 'empty'(or null) || 'callout'
     keys = {
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
       { "<leader>oE", "<CMD>ObsidianExtractNote<CR>", desc = "[E]xtract Note", ft = "markdown" },
       -- { "<leader>ow", "<CMD>ObsidianWorkspace<CR>", desc = "Change [W]orkspace" },
       { "<leader>od", obs_utils.open_obs_daily, desc = "[O]bs [D]aily" },
-      { "<leader>oe", obs_utils.toggle_obs_daily, desc = "Toggl[e] Daily" },
+      -- { "<leader>oe", obs_utils.toggle_obs_daily, desc = "Toggl[e] Daily" },
       -- [[ TEXT INSERTS ]]
       -- TODO: add:
       --  - if prev_line and next_line have same number of spaces as indents,
@@ -286,7 +303,8 @@ return {
   -- [[ MARKVIEW.NVIM ]]
   {
     "OXY2DEV/markview.nvim",
-    lazy = false, -- Recommended
+    lazy = true, -- Recommended lazy = false
+    ft = "markdown", -- if you decide to lazy load
     opts = {
       checkboxes = {
         enable = false,
@@ -297,7 +315,7 @@ return {
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+      { "nvim-tree/nvim-web-devicons", lazy = true },
       -- "echasnovski/mini.icons",
     },
   },

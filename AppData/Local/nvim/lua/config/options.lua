@@ -3,10 +3,13 @@
 
 local opt = vim.opt
 
-opt.scrolloff = 7
+opt.scrolloff = 5
 opt.wrap = true
+-- opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 ---@diagnostic disable-next-line: param-type-mismatch
 opt.spellfile = vim.fs.joinpath(vim.fn.stdpath("config"), "spell/en.utf-8.add")
+opt.undolevels = 3000 -- default 1000 | LazyVim default 10000
+opt.history = 2000 -- default 10000
 
 -- OPERATING SYSTEM SPECIFIC OPTS
 local is_windows = vim.fn.has("win32") == 1
