@@ -4,7 +4,7 @@
 local opt = vim.opt
 
 opt.scrolloff = 5
-opt.wrap = true
+-- opt.wrap = true
 -- opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 ---@diagnostic disable-next-line: param-type-mismatch
 opt.spellfile = vim.fs.joinpath(vim.fn.stdpath("config"), "spell/en.utf-8.add")

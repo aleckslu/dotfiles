@@ -2,11 +2,14 @@ local hour_offset = 5 -- hour of day a new "day" starts
 local daily_time_sec = os.time() - hour_offset * 3600
 local daily_date = os.date("%Y-%m-%d", daily_time_sec)
 local daily_name = daily_date .. ".md"
-local obs_daily_vault_path = vim.env.OBSIDIAN_PERSONAL_VAULT or ""
+-- local obs_vault_path = os.getenv("OBSIDIAN_PERSONAL_VAULT") or ""
+local obs_daily_dir = os.getenv("OBSIDIAN_PERSONAL_VAULT") .. "\\Daily\\"
+-- local obs_path = os.getenv("OBSIDIAN_VAULT_HOME") or ""
+-- local obs_note_pattern = "^" .. obs_path:gsub([[\]], [[\\]]) .. "*.md$"
 _G.cur_daily = {
   date = daily_date,
   name = daily_name,
-  path = obs_daily_vault_path .. "\\Daily\\" .. daily_name,
+  path = obs_daily_dir .. daily_name,
   last_cursor_pos = { 21, 0 },
   seconds = daily_time_sec,
 }
@@ -45,7 +48,13 @@ return {
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
       { "<leader>oE", "<CMD>ObsidianExtractNote<CR>", desc = "[E]xtract Note", ft = "markdown" },
       -- { "<leader>ow", "<CMD>ObsidianWorkspace<CR>", desc = "Change [W]orkspace" },
-      { "<leader>od", obs_utils.open_obs_daily, desc = "[O]bs [D]aily" },
+      {
+        "<leader>od",
+        function()
+          obs_utils.open_obs_daily()
+        end,
+        desc = "[O]bs [D]aily",
+      },
       -- { "<leader>oe", obs_utils.toggle_obs_daily, desc = "Toggl[e] Daily" },
       -- [[ TEXT INSERTS ]]
       -- TODO: add:
@@ -226,25 +235,19 @@ return {
         },
         ["<leader>oy"] = {
           action = function()
-            if cur_daily.seconds then
-              local path = obs_daily_vault_path
-                .. "\\Daily\\"
-                .. os.date("%Y-%m-%d", cur_daily.seconds - 86400)
-                .. ".md"
-              return vim.cmd("edit " .. path)
-            end
+            -- if cur_daily.seconds then
+            local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds - 86400) .. ".md"
+            return vim.cmd("edit " .. path)
+            -- end
           end,
           opts = { desc = "open [Y]esterday" },
         },
         ["<leader>oY"] = {
           action = function()
-            if cur_daily.seconds then
-              local path = obs_daily_vault_path
-                .. "\\Daily\\"
-                .. os.date("%Y-%m-%d", cur_daily.seconds + 86400)
-                .. ".md"
-              return vim.cmd("edit " .. path)
-            end
+            -- if cur_daily.seconds then
+            local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds + 86400) .. ".md"
+            return vim.cmd("edit " .. path)
+            -- end
           end,
           opts = { desc = "open Tomorrow" },
         },
@@ -268,8 +271,19 @@ return {
         { "<leader>oi", group = "insert" },
       })
 
+      -- vim.api.nvim_create_autocmd("FileType", {
+      --   pattern = "markdown",
+      --   -- pattern = obs_note_pattern,
+      --   callback = function(e)
+      --     -- obs_daily_vault_path
+      --     -- vim.print(e.buf)
+      --     -- vim.bo[e.buf].textwidth = 170
+      --     vim.bo[e.buf].conceallevel = 2
+      --     -- vim.print(vim.bo[e.buf].textwidth)
+      --   end,
+      -- })
+
       require("obsidian").setup(opts)
-      -- vim.opt.conceallevel = 2
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",

@@ -131,15 +131,15 @@ return {
       },
     },
     dependencies = {
+      -- dep: telescope-undo, telescope undo, undotree
       {
-        -- dep: telescope-undo, telescope undo, undotree
-        {
-          "debugloop/telescope-undo.nvim",
-          cmd = "Telescope undo",
-          keys = {
-            { "<leader>su", "<cmd>Telescope undo<cr>", desc = "Undo" },
-          },
+        "debugloop/telescope-undo.nvim",
+        cmd = "Telescope undo",
+        keys = {
+          { "<leader>su", "<cmd>Telescope undo<cr>", desc = "Undo" },
         },
+      },
+      {
         -- dep: telescope-fzf-native
         "nvim-telescope/telescope-fzf-native.nvim",
         build = have_make and "make"

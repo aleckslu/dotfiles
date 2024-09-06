@@ -122,8 +122,7 @@ end
 
 function M.open_obs_daily()
   local obs_path = require("obsidian").Path.new(cur_daily.path)
-  local is_existing = obs_path:is_file()
-  if is_existing then
+  if obs_path:is_file() then
     return vim.cmd(":edit " .. cur_daily.path)
   else
     -- if not cur_daily and cur_daily.date then

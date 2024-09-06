@@ -90,6 +90,8 @@ if (Test-Path($ChocolateyProfile))
 
 . "$DOTFILES\pwsh\git-aliases.ps1"
 
+Set-Alias -Name vim -Value nvim.exe
+Set-Alias alias Get-Alias
 Set-Alias which where.exe
 Set-Alias touch New-Item
 Set-Alias komo komorebic.exe
@@ -97,15 +99,9 @@ Set-Alias grep Select-String
 Set-Alias owner Get-Acl
 Set-Alias oc onecommander.exe
 Set-Alias ls eza.exe
-# Set-Alias vim nvim.exe
+Set-Alias lg lazygit
 
 ### Custom Functions
-
-function vim
-{
-  nvim $args
-}
-
 function yasb
 {
   param(
