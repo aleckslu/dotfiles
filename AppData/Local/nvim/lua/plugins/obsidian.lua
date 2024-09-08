@@ -22,27 +22,38 @@ return {
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = "markdown",
-    cond = function()
-      -- NOTE: add env vars to wsl and change the conditional check for environment var existance
-      return vim.fn.has("win32") == 1
-    end,
+    cond = IsWindows,
 
     -- KEYMAPS
-    -- NOTE:
-    -- general conditionals:
-    --    - if cur line empty -> place on cur line
-    --    - else -> place next line
-    --    - INDENTS:
-    --        -
-    -- time: <general conditionals>
-    -- other bullets: <general conditionals>
-    --    - if cur line callout or list with no content -> concat with cur line
-    --        -> (`- ` or `> ` or `> * ` or `- [*] `)
-    --      - if next and prev line callout -> place in callout
-    -- callouts: <general conditionals>
-    --    - if cur line callout -> separate w/ time
-    --
-    -- line_is(line_num, or ['prev' || 'cur' || 'next']) => 'list' || 'checkbox' || 'empty'(or null) || 'callout'
+    -- <leader>o -> <localleader> ?
+    -- NOTE: [ [ CONDITIONALS ] ]:
+    --    general conditionals:
+    --       - if cur line empty -> place on cur line
+    --       - else -> place next line
+    --       - INDENTS:
+    --           - something
+    --    time: <general conditionals>
+    --    other bullets: <general conditionals>
+    --       - if cur line callout or list with no content -> concat with cur line
+    --           -> (`- ` or `> ` or `> * ` or `- [*] `)
+    --         - if next and prev line callout -> place in callout
+    --    callouts: <general conditionals>
+    --       - if cur line callout -> separate w/ time
+    -- NOTE: [ [ INSERT MAPS ] ]
+    --    time
+    --    pot
+    --    research
+    --    callouts
+    --    --
+    --    config:
+    --    shop:
+    -- NOTE: [ [ FUNCTIONS ] ]
+    --    line_is(line_num, or ['prev' || 'cur' || 'next']) => 'list' || 'checkbox' || 'empty'(or null) || 'callout'
+    --    turn_into() -> example: turn this line: `- something` into this: `- config: something`
+    --            - or `- nvim plugin` -> `- 🔍 nvim plugin`
+    --    categories:
+    --    insert:
+    --    turn line into:
     keys = {
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
@@ -271,17 +282,18 @@ return {
         { "<leader>oi", group = "insert" },
       })
 
-      -- vim.api.nvim_create_autocmd("FileType", {
-      --   pattern = "markdown",
-      --   -- pattern = obs_note_pattern,
-      --   callback = function(e)
-      --     -- obs_daily_vault_path
-      --     -- vim.print(e.buf)
-      --     -- vim.bo[e.buf].textwidth = 170
-      --     vim.bo[e.buf].conceallevel = 2
-      --     -- vim.print(vim.bo[e.buf].textwidth)
-      --   end,
-      -- })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        -- pattern = obs_note_pattern,
+        callback = function(e)
+          vim.opt_local.wrap = false
+          -- obs_daily_vault_path
+          -- vim.print(e.buf)
+          -- vim.bo[e.buf].textwidth = 170
+          -- vim.bo[e.buf].conceallevel = 2
+          -- vim.print(vim.bo[e.buf].textwidth)
+        end,
+      })
 
       require("obsidian").setup(opts)
     end,

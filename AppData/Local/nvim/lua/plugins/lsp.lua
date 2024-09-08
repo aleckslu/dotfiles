@@ -17,6 +17,7 @@ return {
     opts = {
       ensure_installed = {
         "powershell-editor-services",
+        "typescript-language-server",
       },
     },
   },

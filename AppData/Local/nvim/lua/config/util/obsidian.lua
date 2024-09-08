@@ -115,7 +115,7 @@ function M.open_obs_uri(vault_name, file_name)
   -- NOTE: currently doesn't work in wsl
   local uri = 'start "" "obsidian://open?vault=' .. vault_name .. (file_name and "name=" .. file_name or "") .. '"'
   p("open_obs_uri - uri: " .. uri)
-  if vim.fn.has("win32") == 1 then
+  if IsWindows then
     os.execute(uri)
   end
 end

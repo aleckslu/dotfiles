@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local js_langs = {
   "typescript",
   "javascript",
