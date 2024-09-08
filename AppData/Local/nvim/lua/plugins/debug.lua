@@ -12,6 +12,7 @@ local js_langs = {
 
 return {
   { "nvim-neotest/nvim-nio" },
+  -- https://www.lazyvim.org/extras/dap/core
   {
     "mfussenegger/nvim-dap",
     config = function()
