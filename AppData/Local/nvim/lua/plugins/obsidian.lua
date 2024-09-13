@@ -23,7 +23,6 @@ return {
     lazy = true,
     ft = "markdown",
     cond = IsWindows,
-
     -- KEYMAPS
     -- <leader>o -> <localleader> ?
     -- NOTE: [ [ CONDITIONALS ] ]:
@@ -187,7 +186,7 @@ return {
     opts = {
       -- disable for marview.nvim
       ui = {
-        enable = true, -- set to false to disable all additional syntax features
+        enable = false, -- set to false to disable all additional syntax features
         update_debounce = 500, -- update delay after a text change (in milliseconds)
         max_file_length = 15000, -- disable UI features for files with more than this many lines
         -- Define how various check-boxes are displayed
@@ -202,7 +201,6 @@ return {
         },
         -- 🌟 🔥 🚀 🏆 💸 ⭐ 🚨 🎯 ⚡ ❌ 📌 🚀 ✧ ✪ ✦ ✵ arrows: ➥   ⤹  ⤷  ⟿   ↪  ↯  ➜  ➔  ➥ brackets: ❴  ❵  ❱  ❯  ❪  ❫
       },
-      -- ui = { enable = false },
       workspaces = {
         {
           name = "p",
@@ -282,18 +280,15 @@ return {
         { "<leader>oi", group = "insert" },
       })
 
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "markdown",
-        -- pattern = obs_note_pattern,
-        callback = function(e)
-          vim.opt_local.wrap = false
-          -- obs_daily_vault_path
-          -- vim.print(e.buf)
-          -- vim.bo[e.buf].textwidth = 170
-          -- vim.bo[e.buf].conceallevel = 2
-          -- vim.print(vim.bo[e.buf].textwidth)
-        end,
-      })
+      -- overrides for catpuccin
+      -- vim.api.nvim_set_hl(0, "@markup.italic", { link = "Conditional" })
+      -- vim.api.nvim_set_hl(0, "@markup.strong", { link = "rainbow3" })
+      -- vim.api.nvim_set_hl(0, "@markup.quote", { link = "rainbow6" })
+
+      -- overrides for onedark
+      vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = "#89ddff", bold = true })
+      vim.api.nvim_set_hl(0, "@markup.list.checked", { link = "DiagnosticOk" })
+      vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { link = "Boolean", bold = true })
 
       require("obsidian").setup(opts)
     end,
@@ -329,6 +324,8 @@ return {
   -- [[ MARKVIEW.NVIM ]]
   {
     "OXY2DEV/markview.nvim",
+    enabled = false,
+    -- enabled = not LazyVim.has_extra("lang.markdown"),
     lazy = true, -- Recommended lazy = false
     ft = "markdown", -- if you decide to lazy load
     opts = {
@@ -338,11 +335,113 @@ return {
       list_items = {
         enable = false,
       },
+
+      -- hybrid mode - https://github.com/OXY2DEV/markview.nvim?tab=readme-ov-file#-hybrid-mode
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       { "nvim-tree/nvim-web-devicons", lazy = true },
-      -- "echasnovski/mini.icons",
+      -- "echasnovski/mini.icons", -- doesn't work
     },
+  },
+
+  -- Render-Markdown , Markdown.nvim,
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "norg", "rmd", "org" },
+    opts = {
+      -- [ [ LAZYVIM DEFAULT OPTS ] ]
+      file_types = { "markdown", "norg", "rmd", "org" },
+      code = {
+        sign = false,
+        width = "block",
+        right_pad = 1,
+      },
+      -- heading = {
+      --   sign = false,
+      --   icons = {},
+      -- },
+
+      -- [ [ CUSTOM OPTS ] ]
+      -- HEADING HEADERS
+      heading = {
+        enabled = true,
+        sign = true,
+        position = "overlay",
+        icons = { "  " },
+        -- icons = { " 󰲡 ", " 󰲣 ", " 󰲥 ", " 󰲧 ", " 󰲩 ", " 󰲫 " },
+        signs = { "󰫎 " },
+        width = "full",
+        backgrounds = {
+          "@markup.heading.1.markdown",
+          "@markup.heading.2.markdown",
+          "@markup.heading.3.markdown",
+          "@markup.heading.4.markdown",
+          "@markup.heading.5.markdown",
+          "@markup.heading.6.markdown",
+        },
+        foregrounds = {
+          "@markup.heading.1.markdown",
+          "@markup.heading.2.markdown",
+          "@markup.heading.3.markdown",
+          "@markup.heading.4.markdown",
+          "@markup.heading.5.markdown",
+          "@markup.heading.6.markdown",
+        },
+      },
+
+      -- • 󰄱   ✪
+      -- • ◦ ‣ ⁃ ⁌ ⁍ ∙ ○ ● ◘ ⦾ ⦿ ◉
+      -- BULLETS LISTS
+      bullet = {
+        enabled = true,
+        -- Replaces '-'|'+'|'*' of 'list_item'
+        -- "‣", "∙"
+        icons = { "•", "◦" },
+        left_pad = 0,
+        right_pad = 0,
+        highlight = "RenderMarkdownBullet",
+      },
+
+      -- CHECKBOXES
+      checkbox = {
+        enabled = true,
+        -- Determines how icons fill the available space:
+        --  inline:  underlying text is concealed resulting in a left aligned icon
+        --  overlay: result is left padded with spaces to hide any additional text
+        position = "inline",
+        unchecked = {
+          icon = "󰄱",
+          highlight = "RenderMarkdownUnchecked",
+        },
+        checked = {
+          icon = "",
+          highlight = "RenderMarkdownChecked",
+        },
+        custom = {
+          -- todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" }, -- this is on by default
+          time = { raw = "[>]", rendered = "󰥔", highlight = "@markup.italic.markdown_inline" },
+          reward = { raw = "[*]", rendered = "✪", highlight = "DiagnosticOk" },
+          warn = { raw = "[!]", rendered = "", highlight = "Error" },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("render-markdown").setup(opts)
+      LazyVim.toggle.map("<leader>um", {
+        name = "Render Markdown",
+        get = function()
+          return require("render-markdown.state").enabled
+        end,
+        set = function(enabled)
+          local m = require("render-markdown")
+          if enabled then
+            m.enable()
+          else
+            m.disable()
+          end
+        end,
+      })
+    end,
   },
 }

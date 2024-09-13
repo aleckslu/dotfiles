@@ -49,19 +49,16 @@ config.color_scheme = "Catppuccin Frappé (Gogh)"
 -- config.font = wezterm.font("JetBrains Mono")
 -- config.font = wezterm.font 'JetBrainsMono NF'
 -- config.font = wezterm.font("JetBrainsMono NF Medium")
--- config.font = wezterm.font('JetBrainsMono NF Light')
--- -- config.font = wezterm.font("JetBrainsMono NFM Light")
--- config.font = wezterm.font("JetBrainsMono NFM")
 -- config.font = wezterm.font("JetBrainsMono NFM Medium")
-config.font = wezterm.font("JetBrainsMono NFM SemiBold")
--- config.font = wezterm.font 'JetBrains Mono NL'
--- config.font = wezterm.font 'JetBrains Mono NL Light'
--- config.font = wezterm.font 'JetBrains Mono NL SemiBold'
--- config.font = wezterm.font 'Fira Code'
--- config.font = wezterm.font("Fira Code Medium")
--- config.font = wezterm.font 'MesloLGS Nerd Font Mono'
+-- "FiraCode Nerd Font Mono Med",
+-- MesloLGS Nerd Font Mono
+config.font = wezterm.font_with_fallback({
+	"JetBrainsMono NFM SemiBold",
+	"Font Awesome 6 Free Solid",
+})
+
 -- config.font = wezterm.font 'Consolas'
-config.font_size = 12
+config.font_size = 13
 
 -- from github issue, making font look closer to other terms
 -- config.font.weight = "SemiBold"
@@ -74,6 +71,7 @@ config.freetype_load_flags = "NO_HINTING"
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.94
 -- config.text_background_opacity = 0.5
+-- config.win32_system_backdrop = "Acrylic" -- doesn't work
 config.window_frame = {
 	font = wezterm.font({ family = "JetBrainsMono NFM Medium" }),
 	font_size = 11,
@@ -81,7 +79,7 @@ config.window_frame = {
 	-- inactive_titlebar_bg = "#333333",
 }
 config.inactive_pane_hsb = {
-	-- 	saturation = 0.8,
+	-- saturation = 0.8,
 	brightness = 0.5,
 }
 -- Tabs
@@ -292,6 +290,7 @@ config.key_tables = {
 	},
 }
 
+-- config.front_end = "OpenGL"
 config.allow_win32_input_mode = false
 -- and finally, return the configuration to wezterm
 return config

@@ -1,177 +1,178 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.yaml",
-	"window_hiding_behaviour": "Cloak",
-	"cross_monitor_move_behaviour": "Insert",
-	"default_workspace_padding": 1,
-	"default_container_padding": 2,
-	"mouse_follows_focus": true,
-	"global_work_area_offset": {
-		"bottom": 0,
-		"left": 0,
-		"right": 0,
-		"top": -3
-	},
-	"animation": {
-		"enabled": true,
-		"duration": 75,
-		"fps": 120,
-		"style": "EaseOutExpo"
-	},
-	"stackbar": {
-		"height": 32,
-		"label": "Title",
-		"mode": "OnStack",
-		"tabs": {
-			"background": "#383A4E",
-			"focused_text": "#E2A36C",
-			"unfocused_text": "#999999",
-			"width": 200
-		}
-	},
-	"transparency": false,
-	"border": true,
-	"border_width": 6,
-	"border_colours": {
-		"single": {
-			"r": 49,
-			"g": 200,
-			"b": 251
-		},
-		"stack": {
-			"r": 226,
-			"g": 94,
-			"b": 62
-		},
-		"monocle": {
-			"r": 78,
-			"g": 222,
-			"b": 136
-		}
-	},
-	"float_rules": [
-		{
-			"kind": "Exe",
-			"id": "GTA5.exe",
-			"matching_strategy": "Equals"
-		},
-		{
-			"kind": "Exe",
-			"id": "cs2.exe",
-			"matching_strategy": "Equals"
-		}
-	],
-	"manage_rules": [
-		{
-			"kind": "Class",
-			"id": "ConsoleWindowClass"
-		},
-		{
-			"kind": "Class",
-			"id": "org.wezfurlong.wezterm"
-		},
-		{
-			"kind": "Exe",
-			"id": "FoxitReader.exe"
-		},
-		{
-			"kind": "Exe",
-			"id": "Discord.exe"
-		},
-		{
-			"kind": "Exe",
-			"id": "steamwebhelper.exe",
-			"matching_strategy": "Equals"
-		}
-	],
-	"monitors": [
-		{
-			"workspaces": [
-				{
-					"name": "6",
-					"layout": "Grid"
-				},
-				{
-					"name": "7",
-					"layout": "Grid"
-				},
-				{
-					"name": "8",
-					"layout": "Grid"
-				},
-				{
-					"name": "9",
-					"layout": "Grid"
-				},
-				{
-					"name": "10",
-					"layout": "Grid"
-				}
-			]
-		},
-		{
-			"workspaces": [
-				{
-					"name": "1",
-					"layout": "Grid"
-				},
-				{
-					"name": "2",
-					"layout": "Grid",
-					"initial_workspace_rules": [
-						{
-							"kind": "Exe",
-							"id": "Obsidian.exe",
-							"matching_strategy": "Equals"
-						},
-						{
-							"kind": "Exe",
-							"id": "Todoist.exe",
-							"matching_strategy": "Equals"
-						},
-						{
-							"kind": "Exe",
-							"id": "Asana.exe",
-							"matching_strategy": "Equals"
-						}
-					]
-				},
-				{
-					"name": "3",
-					"layout": "Grid",
-					"initial_workspace_rules": [
-						{
-							"kind": "Exe",
-							"id": "Discord.exe",
-							"matching_strategy": "Equals"
-						},
-						{
-							"kind": "Exe",
-							"id": "Spotify.exe",
-							"matching_strategy": "Equals"
-						}
-					]
-				},
-				{
-					"name": "4",
-					"layout": "Grid"
-				},
-				{
-					"name": "float",
-					"initial_workspace_rules": [
-						{
-							"kind": "Exe",
-							"id": "steamwebhelper.exe",
-							"matching_strategy": "Equals"
-						},
-						{
-							"kind": "Exe",
-							"id": "Hourglass.exe",
-							"matching_strategy": "Equals"
-						}
-					]
-				}
-			]
-		}
-	]
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.yaml",
+  "window_hiding_behaviour": "Cloak",
+  "cross_monitor_move_behaviour": "Insert",
+  "default_workspace_padding": 1,
+  "default_container_padding": 2,
+  "mouse_follows_focus": true,
+  "global_work_area_offset": {
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "top": -3
+  },
+  "animation": {
+    "enabled": true,
+    "duration": 98,
+    "fps": 140,
+    "style": "EaseOutExpo"
+  },
+  "stackbar": {
+    "height": 32,
+    "label": "Title",
+    "mode": "OnStack",
+    "tabs": {
+      "background": "#383A4E",
+      "focused_text": "#E2A36C",
+      "unfocused_text": "#999999",
+      "width": 200
+    }
+  },
+  "transparency": false,
+  "border": true,
+  "border_implementation": "Windows",
+  "border_width": 6,
+  "border_colours": {
+    "single": {
+      "r": 49,
+      "g": 200,
+      "b": 251
+    },
+    "stack": {
+      "r": 226,
+      "g": 94,
+      "b": 62
+    },
+    "monocle": {
+      "r": 78,
+      "g": 222,
+      "b": 136
+    }
+  },
+  "float_rules": [
+    {
+      "kind": "Exe",
+      "id": "GTA5.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "cs2.exe",
+      "matching_strategy": "Equals"
+    }
+  ],
+  "manage_rules": [
+    {
+      "kind": "Class",
+      "id": "ConsoleWindowClass"
+    },
+    {
+      "kind": "Class",
+      "id": "org.wezfurlong.wezterm"
+    },
+    {
+      "kind": "Exe",
+      "id": "FoxitReader.exe"
+    },
+    {
+      "kind": "Exe",
+      "id": "Discord.exe"
+    },
+    {
+      "kind": "Exe",
+      "id": "steamwebhelper.exe",
+      "matching_strategy": "Equals"
+    }
+  ],
+  "monitors": [
+    {
+      "workspaces": [
+        {
+          "name": "6",
+          "layout": "Grid"
+        },
+        {
+          "name": "7",
+          "layout": "Grid"
+        },
+        {
+          "name": "8",
+          "layout": "Grid"
+        },
+        {
+          "name": "9",
+          "layout": "Grid"
+        },
+        {
+          "name": "10",
+          "layout": "Grid"
+        }
+      ]
+    },
+    {
+      "workspaces": [
+        {
+          "name": "1",
+          "layout": "Grid"
+        },
+        {
+          "name": "2",
+          "layout": "Grid",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Obsidian.exe",
+              "matching_strategy": "Equals"
+            },
+            {
+              "kind": "Exe",
+              "id": "Todoist.exe",
+              "matching_strategy": "Equals"
+            },
+            {
+              "kind": "Exe",
+              "id": "Asana.exe",
+              "matching_strategy": "Equals"
+            }
+          ]
+        },
+        {
+          "name": "3",
+          "layout": "Grid",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Discord.exe",
+              "matching_strategy": "Equals"
+            },
+            {
+              "kind": "Exe",
+              "id": "Spotify.exe",
+              "matching_strategy": "Equals"
+            }
+          ]
+        },
+        {
+          "name": "4",
+          "layout": "Grid"
+        },
+        {
+          "name": "float",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "steamwebhelper.exe",
+              "matching_strategy": "Equals"
+            },
+            {
+              "kind": "Exe",
+              "id": "Hourglass.exe",
+              "matching_strategy": "Equals"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -160,6 +160,13 @@ Set-Alias -Name stopkomo -Value killKomo
 
 function startWHKD
 {
+  param(
+    [switch]$r ## restart
+  )
+  if ($r)
+  {
+    killWHKD
+  }
   Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
 }
 

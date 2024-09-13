@@ -4,6 +4,19 @@
 
 -- Windows Clear Shada Temp Files
 -- https://github.com/neovim/neovim/issues/8587#issuecomment-2176941108
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  -- pattern = obs_note_pattern,
+  callback = function()
+    vim.opt_local.wrap = false
+    -- vim.opt_local.concealcursor = "c"
+    vim.opt_local.spell = false
+    vim.opt_local.conceallevel = 2
+    -- obs_daily_vault_path
+  end,
+})
+
 if IsWindows then
   -- vim.api.nvim_create_user_command("ClearShada", function()
   vim.api.nvim_create_user_command("VimLeave", function()
