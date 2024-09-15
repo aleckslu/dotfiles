@@ -46,19 +46,17 @@ config.color_scheme = "Catppuccin Frappé (Gogh)"
 -- config.color_scheme = "Tomorrow Night (Gogh)"
 
 -- FONTS
--- config.font = wezterm.font("JetBrains Mono")
--- config.font = wezterm.font 'JetBrainsMono NF'
--- config.font = wezterm.font("JetBrainsMono NF Medium")
 -- config.font = wezterm.font("JetBrainsMono NFM Medium")
 -- "FiraCode Nerd Font Mono Med",
 -- MesloLGS Nerd Font Mono
 config.font = wezterm.font_with_fallback({
-	"JetBrainsMono NFM SemiBold",
-	"Font Awesome 6 Free Solid",
+	"JetBrains Mono Medium",
+	-- "JetBrains Mono NL SemiBold",
+	"JetBrainsMono NFM Medium",
+	-- "Font Awesome 6 Free Solid",
+	-- -> local function J
 })
-
--- config.font = wezterm.font 'Consolas'
-config.font_size = 13
+config.font_size = 14
 
 -- from github issue, making font look closer to other terms
 -- config.font.weight = "SemiBold"
@@ -293,4 +291,6 @@ config.key_tables = {
 -- config.front_end = "OpenGL"
 config.allow_win32_input_mode = false
 -- and finally, return the configuration to wezterm
+-- require("tabs")
 return config
+-- :append(require("tabs"))
