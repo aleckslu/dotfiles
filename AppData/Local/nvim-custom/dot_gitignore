@@ -1,8 +1,0 @@
-tags
-test.sh
-.luarc.json
-nvim
-
-# TODO: see if you need to ignore spell/
-# spell/
-lazy-lock.json
