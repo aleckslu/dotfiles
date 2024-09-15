@@ -10,6 +10,8 @@ local js_langs = {
   "vue",
 }
 
+-- TODO: python setup - https://www.reddit.com/r/neovim/comments/1fgq6rq/lazyvim_python_debug_setup/
+
 return {
   { "nvim-neotest/nvim-nio" },
   -- https://www.lazyvim.org/extras/dap/core
