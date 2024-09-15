@@ -33,7 +33,7 @@ $REPOS = "$HOME\repositories"
 $Env:RESUME_HOME = "$HOME\repositories\resumes"
 $RESUMES = $Env:RESUME_HOME
 # Example repo / config files
-$DUMP = "$REPOS\_dump" ## move to \dump 
+$DUMP = "$REPOS\dump" ## move to \dump 
 # $CONFIG_DUMP = "$DUMP\dotfiles"
 
 $VIMRC = $Env:MYVIMRC
