@@ -42,9 +42,9 @@ if IsWindows then
   end, { desc = "Clears all the .tmp shada files" })
 end
 
--- WSL Clipboard
 if not IsWindows then
-  -- sync with system clipboard on focus
+  -- WSL Clipboard
+  -- -- sync with system clipboard on focus
   vim.api.nvim_create_autocmd({ "FocusGained" }, {
     pattern = { "*" },
     command = [[call setreg("@", getreg("+"))]],
@@ -55,4 +55,6 @@ if not IsWindows then
     pattern = { "*" },
     command = [[call setreg("+", getreg("@"))]],
   })
+
+  -- require("config.util.wsl-clipboard").setup()
 end
