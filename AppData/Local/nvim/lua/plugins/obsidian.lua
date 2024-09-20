@@ -53,6 +53,11 @@ return {
     --    categories:
     --    insert:
     --    turn line into:
+    --  NOTE: [ [ OTHER  ] ]
+    --  swerve:
+    --    - one extra indent
+    --    - change to arrow checkbox
+    -- NOTE: [[ keymaps ]]
     keys = {
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
@@ -286,7 +291,7 @@ return {
       -- vim.api.nvim_set_hl(0, "@markup.quote", { link = "rainbow6" })
 
       -- overrides for onedark
-      vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = "#89ddff", bold = true })
+      vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = "#88ddff", bold = true })
       vim.api.nvim_set_hl(0, "@markup.list.checked", { link = "DiagnosticOk" })
       vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { link = "Boolean", bold = true })
 
@@ -340,12 +345,13 @@ return {
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      { "nvim-tree/nvim-web-devicons", lazy = true },
+      -- { "nvim-tree/nvim-web-devicons", lazy = true },
       -- "echasnovski/mini.icons", -- doesn't work
+      "nvim-web-devicons",
     },
   },
 
-  -- Render-Markdown , Markdown.nvim,
+  -- [[ Render-Markdown , Markdown.nvim ]]
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "norg", "rmd", "org" },
@@ -357,13 +363,9 @@ return {
         width = "block",
         right_pad = 1,
       },
-      -- heading = {
-      --   sign = false,
-      --   icons = {},
-      -- },
 
       -- [ [ CUSTOM OPTS ] ]
-      -- HEADING HEADERS
+      -- Heading/Headers
       heading = {
         enabled = true,
         sign = true,

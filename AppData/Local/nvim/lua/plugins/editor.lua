@@ -1,5 +1,6 @@
 return {
   {
+    -- https://www.lazyvim.org/plugins/editor#neo-treenvim
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       { "<leader>fe", false },
@@ -27,19 +28,30 @@ return {
           hide_gitignored = false,
           hide_hidden = false,
         },
+        commands = {
+          -- Delete into Recycling Bin using oberblastmeister/trashy cli
+          delete = function(state)
+            local inputs = require("neo-tree.ui.inputs")
+            local path = state.tree:get_node().path
+            local msg = "Are you sure you want to delete " .. path
+            inputs.confirm(msg, function(confirmed)
+              if not confirmed then
+                return
+              end
+              vim.fn.system({
+                "trash",
+                path,
+              })
+              require("neo-tree.sources.manager").refresh(state.name)
+            end)
+          end,
+        }, -- Add a custom command or override a global one using the same function name
       },
       window = {
         mappings = {
-          ["-"] = "close_node",
+          ["-"] = "navigate_up",
         },
       },
-      -- -- project.nvim
-      -- sync_root_with_cwd = true,
-      -- respect_buf_cwd = true,
-      -- update_focused_file = {
-      --   enable = true,
-      --   update_root = true,
-      -- },
     },
   },
 
@@ -122,6 +134,7 @@ return {
   },
 
   -- EXTRA: telescope.nvim
+  -- https://www.lazyvim.org/extras/editor/telescope#telescopenvim
   {
     "nvim-telescope/telescope.nvim",
     -- cmd = "Telescope",

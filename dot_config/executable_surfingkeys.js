@@ -22,7 +22,7 @@
 // api.unmap('sg')
 
 // default settings:
-// https://github.com/brookhong/Surfingkeys?tab=readme-ov-file#properties-list
+// https://github.com/brookhongoSurfingkeys?tab=readme-ov-file#properties-list
 
 /** Keymaps */
 settings.showModeStatus = true
@@ -31,7 +31,7 @@ settings.omnibarHistoryCacheSize = 200
 settings.omnibarPosition = "top"
 settings.omnibarSuggestion = true
 settings.smoothScroll = false
-settings.scrollStepSize = 90
+settings.scrollStepSize = 100
 settings.hintAlign = "left"
 api.unmap("sd")
 api.unmap("sb")
