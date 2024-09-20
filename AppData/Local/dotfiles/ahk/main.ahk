@@ -13,8 +13,9 @@ Return
 
 ; ---------- JobSearch Hotkeys
 ; disable Windows Lock Behavior first to free up Win + L.  (edit registry)
-#l::Send("www.linkedin.com/in/aleckslu")
+#l::Send("https://www.linkedin.com/in/alu826")
 #g::Send("https://github.com/aleckslu")
+;#p::Send("") ; portfolio
 #t::Send("Software Engineer")
 #o::Send("Overvue")
 
