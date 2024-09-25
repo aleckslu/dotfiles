@@ -26,7 +26,7 @@ keymap.del("n", "<leader>uL") -- Toggle Relative Line Numbers
 -- remapping : and ;
 keymap.set({ "n", "v" }, ";", ":", { noremap = true })
 keymap.set({ "n", "v" }, ":", ";", { noremap = true })
-keymap.set("n", "+", "<C-a>")
+keymap.set({ "n", "x" }, "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 keymap.set("n", "U", "<C-r>")
 keymap.set("n", "<leader>q", LazyVim.ui.bufremove, { desc = "Delete Buf" })

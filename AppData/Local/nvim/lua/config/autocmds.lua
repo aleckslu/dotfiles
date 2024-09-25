@@ -18,8 +18,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 if IsWindows then
-  -- vim.api.nvim_create_user_command("ClearShada", function()
-  vim.api.nvim_create_user_command("VimLeave", function()
+  vim.api.nvim_create_user_command("ClearShada", function()
     local shada_path = vim.fn.expand(vim.fn.stdpath("data") .. "/shada")
     local files = vim.fn.glob(shada_path .. "/*", false, true)
     local all_success = 0
