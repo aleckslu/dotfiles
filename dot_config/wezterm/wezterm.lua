@@ -50,13 +50,16 @@ config.color_scheme = "Catppuccin Frappé (Gogh)"
 -- "FiraCode Nerd Font Mono Med",
 -- MesloLGS Nerd Font Mono
 config.font = wezterm.font_with_fallback({
+	-- "JetBrains Mono",
+	-- "Atkinson Hyperlegible",
 	"JetBrains Mono Medium",
+	-- "JetBrains Mono SemiBold",
 	-- "JetBrains Mono NL SemiBold",
 	"JetBrainsMono NFM Medium",
 	-- "Font Awesome 6 Free Solid",
 	-- -> local function J
 })
-config.font_size = 14
+config.font_size = 16
 
 -- from github issue, making font look closer to other terms
 -- config.font.weight = "SemiBold"
@@ -67,9 +70,10 @@ config.freetype_load_flags = "NO_HINTING"
 
 -- Window Styling
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.94
+config.window_background_opacity = 0.93
 -- config.text_background_opacity = 0.5
--- config.win32_system_backdrop = "Acrylic" -- doesn't work
+-- config.win32_system_backdrop = "Acrylic" -- NOTE: blur effect doesn't work - "Acrylic" "Mica"
+
 config.window_frame = {
 	font = wezterm.font({ family = "JetBrainsMono NFM Medium" }),
 	font_size = 11,

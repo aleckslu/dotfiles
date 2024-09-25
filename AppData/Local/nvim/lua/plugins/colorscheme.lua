@@ -1,7 +1,7 @@
 return {
-  -- OnedarkPro
-  {
+  { -- OnedarkPro
     "olimorris/onedarkpro.nvim",
+    name = "onedarkpro",
     lazy = true,
     priority = 1000,
     opts = {
@@ -33,12 +33,9 @@ return {
         },
       },
     },
-    -- config = function(_,opts)
-    -- end,
   },
 
-  -- flow.nvim
-  {
+  { -- [[ flow.nvim ]]
     "0xstepit/flow.nvim",
     lazy = true,
     priority = 1000,
@@ -52,59 +49,66 @@ return {
     },
   },
 
-  -- { "sainnhe/edge" },
+  { "sho-87/kanagawa-paper.nvim", lazy = true, priority = 1000 },
+  { "rebelot/kanagawa.nvim", lazy = true, priority = 1000 },
+  { "yorik1984/newpaper.nvim", lazy = true },
+  { "rose-pine/neovim", name = "rose-pine", lazy = true },
+  { "EdenEast/nightfox.nvim", lazy = true },
+  { "oxfist/night-owl.nvim", lazy = true },
+  { "sainnhe/gruvbox-material", lazy = true },
+  { "Mofiqul/dracula.nvim", lazy = true },
+  { "neanias/everforest-nvim", version = false, lazy = true },
+  { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = true },
+  { "maxmx03/solarized.nvim", lazy = true },
+  { "craftzdog/solarized-osaka.nvim", lazy = true },
+  { "ellisonleao/gruvbox.nvim", lazy = true },
+  { "sainnhe/edge", lazy = true },
+  { "sainnhe/sonokai", lazy = true },
+  { "ramojus/mellifluous.nvim", lazy = true },
+  { "kaiuri/nvim-juliana", lazy = true },
+  { "projekt0n/github-nvim-theme", lazy = true },
+  { "marko-cerovac/material.nvim", lazy = true },
+  { "shaunsingh/nord.nvim", lazy = true },
+  { "AlexvZyl/nordic.nvim", lazy = true },
+  { "rmehri01/onenord.nvim", lazy = true },
+  { "ribru17/bamboo.nvim", lazy = true },
+  { "savq/melange-nvim", lazy = true },
+  { "maxmx03/fluoromachine.nvim", lazy = true },
+  { "eldritch-theme/eldritch.nvim", lazy = true },
+  { "HoNamDuong/hybrid.nvim", lazy = true },
+  { "rafamadriz/neon", lazy = true },
+  { "zootedb0t/citruszest.nvim", lazy = true },
+  { "tiagovla/tokyodark.nvim", lazy = true },
 
-  {
+  { -- [[ CYBERDREAM ]]
+    "scottmckendry/cyberdream.nvim",
+    lazy = true,
+    opts = {
+      transparent = true,
+    },
+  },
+
+  { -- [[ TOKYONIGHT ]]
+    "folke/tokyonight.nvim",
+    opts = {
+      on_colors = function(c)
+        -- colors = https://github.com/folke/tokyonight.nvim/blob/817bb6ffff1b9ce72cdd45d9fcfa8c9cd1ad3839/extras/lua/tokyonight_moon.lua#L1
+        c.fg = "#deded7"
+      end,
+      on_highlights = function(hl, c)
+        -- colors = https://github.com/folke/tokyonight.nvim/blob/817bb6ffff1b9ce72cdd45d9fcfa8c9cd1ad3839/extras/lua/tokyonight_moon.lua#L65
+        hl["@markup.italic"] = { fg = c.magenta, italic = true }
+        hl["@markup.strong"] = { fg = c.yellow, bold = true }
+      end,
+    },
+  },
+
+  { -- LazyVim Setting ColorScheme
     "LazyVim/LazyVim",
     opts = {
       -- Default LazyVim opts: https://www.lazyvim.org/configuration#default-settings
-      -- colorscheme can be a string like `catppuccin` or a function that will load the colorscheme
       ---@type string|fun()
-      -- colorscheme = function()
-      --   require("flow").load()
-      -- end,
-      colorscheme = "onedark",
+      colorscheme = "tokyonight",
     },
   },
 }
-
--- highlight                = "#e2be7d"
--- git_delete               = "#9a353d"
--- black                    = "#282c34"
--- git_change               = "#948B60"
--- color_column             = "#2d313b"
--- git_add                  = "#109868"
--- indentline               = "#3b4048"
--- purple                   = "#c678dd"
--- line_number              = "#495162"
--- comment                  = "#7f848e"
--- inlay_hint               = "#4c525c"
--- fg                       = "#abb2bf"
--- orange                   = "#d19a66"
--- white                    = "#abb2bf"
--- red                      = "#e06c75"
--- gray                     = "#5c6370"
--- cursorline               = "#2d313b"
--- selection                = "#414858"
--- virtual_text_hint        = "#7ec7d1"
--- float_bg                 = "#21252b"
--- fg_gutter_inactive       = "#abb2bf"
--- git_hunk_add             = "#43554d"
--- blue                     = "#61afef"
--- virtual_text_information = "#90c7f4"
--- virtual_text_warning     = "#edd2a1"
--- virtual_text_error       = "#e8939a"
--- bg                       = "#282c34"
--- diff_text                = "#005869"
--- fold                     = "#30333d"
--- diff_delete              = "#501b20"
--- diff_add                 = "#003e4a"
--- fg_gutter                = "#3d4350"
--- git_hunk_delete_inline   = "#6f2e2d"
--- green                    = "#98c379"
--- git_hunk_change_inline   = "#41483d"
--- cyan                     = "#56b6c2"
--- git_hunk_add_inline      = "#3f534f"
--- bg_statusline            = "#22262d"
--- git_hunk_delete          = "#502d30"
--- yellow                   = "#e5c07b"

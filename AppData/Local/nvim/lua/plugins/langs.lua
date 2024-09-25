@@ -34,8 +34,7 @@ return {
     end,
   },
 
-  -- nvim-lspconfig
-  {
+  { -- nvim-lspconfig
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -45,8 +44,7 @@ return {
     },
   },
 
-  -- Mason
-  {
+  { -- [[ MASON ]]
     "williamboman/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {

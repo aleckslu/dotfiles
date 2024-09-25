@@ -17,7 +17,7 @@ local cur_daily = _G.cur_daily
 local obs_utils = require("config.util.obsidian")
 
 return {
-  {
+  { -- [[ OBSIDIAN.NVIM ]]
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -58,6 +58,8 @@ return {
     --    - one extra indent
     --    - change to arrow checkbox
     -- NOTE: [[ keymaps ]]
+    -- ObsidianTOC
+
     keys = {
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
@@ -284,16 +286,15 @@ return {
         { "<leader>o", group = "obsidian" },
         { "<leader>oi", group = "insert" },
       })
-
       -- overrides for catpuccin
       -- vim.api.nvim_set_hl(0, "@markup.italic", { link = "Conditional" })
       -- vim.api.nvim_set_hl(0, "@markup.strong", { link = "rainbow3" })
       -- vim.api.nvim_set_hl(0, "@markup.quote", { link = "rainbow6" })
 
       -- overrides for onedark
-      vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = "#88ddff", bold = true })
-      vim.api.nvim_set_hl(0, "@markup.list.checked", { link = "DiagnosticOk" })
-      vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { link = "Boolean", bold = true })
+      -- vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = "#88ddff", bold = true })
+      -- vim.api.nvim_set_hl(0, "@markup.list.checked", { link = "DiagnosticOk" })
+      -- vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { link = "Boolean", bold = true })
 
       require("obsidian").setup(opts)
     end,
@@ -305,8 +306,7 @@ return {
     },
   },
 
-  -- Markdown-Preview
-  {
+  { -- Markdown-Preview
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = function()
@@ -326,8 +326,7 @@ return {
     end,
   },
 
-  -- [[ MARKVIEW.NVIM ]]
-  {
+  { -- [[ MARKVIEW.NVIM ]]
     "OXY2DEV/markview.nvim",
     enabled = false,
     -- enabled = not LazyVim.has_extra("lang.markdown"),
@@ -351,8 +350,7 @@ return {
     },
   },
 
-  -- [[ Render-Markdown , Markdown.nvim ]]
-  {
+  { -- [[ Render-Markdown , Markdown.nvim ]]
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "norg", "rmd", "org" },
     opts = {
@@ -365,31 +363,30 @@ return {
       },
 
       -- [ [ CUSTOM OPTS ] ]
-      -- Heading/Headers
-      heading = {
+      heading = { -- Heading/Headers
         enabled = true,
         sign = true,
         position = "overlay",
-        icons = { "  " },
+        -- icons = { "  " },
         -- icons = { " 󰲡 ", " 󰲣 ", " 󰲥 ", " 󰲧 ", " 󰲩 ", " 󰲫 " },
-        signs = { "󰫎 " },
+        -- signs = { "󰫎 " },
         width = "full",
-        backgrounds = {
-          "@markup.heading.1.markdown",
-          "@markup.heading.2.markdown",
-          "@markup.heading.3.markdown",
-          "@markup.heading.4.markdown",
-          "@markup.heading.5.markdown",
-          "@markup.heading.6.markdown",
-        },
-        foregrounds = {
-          "@markup.heading.1.markdown",
-          "@markup.heading.2.markdown",
-          "@markup.heading.3.markdown",
-          "@markup.heading.4.markdown",
-          "@markup.heading.5.markdown",
-          "@markup.heading.6.markdown",
-        },
+        -- backgrounds = {
+        --   "@markup.heading.1.markdown",
+        --   "@markup.heading.2.markdown",
+        --   "@markup.heading.3.markdown",
+        --   "@markup.heading.4.markdown",
+        --   "@markup.heading.5.markdown",
+        --   "@markup.heading.6.markdown",
+        -- },
+        -- foregrounds = {
+        --   "@markup.heading.1.markdown",
+        --   "@markup.heading.2.markdown",
+        --   "@markup.heading.3.markdown",
+        --   "@markup.heading.4.markdown",
+        --   "@markup.heading.5.markdown",
+        --   "@markup.heading.6.markdown",
+        -- },
       },
 
       -- • 󰄱   ✪
@@ -400,9 +397,9 @@ return {
         -- Replaces '-'|'+'|'*' of 'list_item'
         -- "‣", "∙"
         icons = { "•", "◦" },
-        left_pad = 0,
-        right_pad = 0,
-        highlight = "RenderMarkdownBullet",
+        -- left_pad = 0,
+        -- right_pad = 0,
+        -- highlight = "RenderMarkdownBullet",
       },
 
       -- CHECKBOXES
