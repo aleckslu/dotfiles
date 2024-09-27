@@ -65,6 +65,8 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Line Up", silent = true 
 keymap.set("n", "J", "mzJ`z")
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
+keymap.set("n", "{", "{zz")
+keymap.set("n", "}", "}zz")
 -- map("n", "N", "Nzzzv")
 -- map("n", "n", "nzzzv")
 
