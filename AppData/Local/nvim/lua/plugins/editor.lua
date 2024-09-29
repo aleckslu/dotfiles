@@ -55,8 +55,7 @@ return {
     },
   },
 
-  -- CUSTOM: OIL.NVIM
-  {
+  { -- CUSTOM: OIL.NVIM
     "stevearc/oil.nvim",
     keys = {
       {
@@ -69,7 +68,7 @@ return {
     },
 
     opts = {
-      default_file_explorer = false,
+      default_file_explorer = true,
       columns = {
         "icon",
       },

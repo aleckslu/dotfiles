@@ -504,7 +504,7 @@ function startup
   Write-Host "Starting YASB & KeyFreq"
   yasb
   startAHK
-  Start-Proccess "C:\Users\aleck\OneDrive\Desktop\Google Calendar.lnk"
+  Start-Process "C:\Users\aleck\OneDrive\Desktop\Google Calendar.lnk"
   keyfreq
 }
 

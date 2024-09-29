@@ -1,6 +1,6 @@
 return {
-  -- Nvim-CMP
-  {
+
+  { -- NVIM-CMP
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-cmdline", -- for cmdline autocompletion
@@ -30,7 +30,10 @@ return {
       })
       -- -- `:` cmdline autocompletion setup.
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        -- https://github.com/hrsh7th/nvim-cmp/blob/ae644feb7b67bf1ce4260c231d1d4300b19c6f30/lua/cmp/config/mapping.lua#L74
+        mapping = cmp.mapping.preset.cmdline({
+          ["<C-y>"] = { c = cmp.mapping.confirm({ select = true }) },
+        }),
         -- mapping = cmp.mapping.preset.cmdline() {
         --   ['<C-G>'] = cmp.mapping.confirm { select = true },
         -- },
