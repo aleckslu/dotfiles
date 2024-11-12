@@ -66,7 +66,8 @@ $TOD = "$Env:APPDATA\tod.cfg"
 # $LAZY = "$CONFIG\nvim-LazyVim"
 # $LAZYDIR = "$Env:LOCALAPPDATA\dotfiles\nvim-lazy-data\lazy\LazyVim"
 $KFREQ_HOME = "$REPOS\projects\keyfreq"
-$KFREQ_JSON = "$REPOS\key-freq.json" ## TODO: -> private dotfiles repo
+$KFREQ_DATA_HOME = "$HOME"
+$KFREQ_JSON = "$KFREQ_DATA_HOME\key-freq.json" ## TODO: -> private dotfiles repo
 
 ## Other files/dirs uncertain if should ignore: ;docs/;doc/;venv/;env/;*.log/;tmp/;temp/;cache/;vendor/*.lock
 ## TODO: update this
@@ -160,21 +161,15 @@ Set-Alias -Name stopkomo -Value killKomo
 
 function startWHKD
 {
-  param(
-    [switch]$r ## restart
-  )
-  if ($r)
-  {
-    killWHKD
-  }
+  killWHKD
   Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
 }
 
 function startKomo
 {
   param(
-    [switch]$p, #stop python processes first
-    [switch]$a #run as admin
+    [switch]$a, #run as admin
+    [switch]$p #kill python
   )
 
   if (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)
@@ -183,15 +178,6 @@ function startKomo
     killKomo
     Write-Host "Stopped Komorebi"
   }
-  if($p)
-  {
-    if (Get-Process -Name python -ErrorAction SilentlyContinue)
-    {
-      Write-Host "Stopping Python Processes..."
-      Stop-Process -Name python -Force #-ErrorAction
-      Wait-Process -Name python -Timeout 3
-    }
-  }
   if($a)
   {
     Write-Host "Debug komohome: $KOMOHOME"
@@ -199,12 +185,16 @@ function startKomo
     StartWHKD
   } else
   {
-    komorebic start -c "$KOMOHOME\komorebi.json" --whkd
+    Write-Host "Debug komohome: $KOMOHOME"
+    komorebic start -c "$KOMOHOME\komorebi.json" --whkd --bar
+  }
+  if ($p)
+  {
+    Stop-Process -Name python -ErrorAction SilentlyContinue
   }
   Write-Host "Komorebi started"
-  . "$DOTFILES\pwsh\komorebi.generated.ps1"
-  Write-Host "Starting YASB..."
   yasb
+  # . "$DOTFILES\pwsh\komorebi.generated.ps1"
 }
 
 function rcopy
@@ -486,30 +476,32 @@ function Find-ParentDirectory
 
 function startup
 {
-  while (
-    -not (Get-Process -Name "Obsidian" -ErrorAction SilentlyContinue) 
-  )
-  {
-    Start-Sleep -Seconds 3
-  }
-  Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
-  Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
+  # while (
+  #   -not (Get-Process -Name "Obsidian" -ErrorAction SilentlyContinue) 
+  # )
+  # {
+  #   Start-Sleep -Seconds 1
+  # }
+
+  Write-Host "Starting main.ahk"
+  startAHK
+  Write-Host "Starting Google Calendar"
+  Start-Process "C:\Users\aleck\OneDrive\Desktop\Google Calendar.lnk"
+
+  startkomo -a
+  # Start-Process 'komorebi.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList --config="$KOMOHOME\komorebi.json"
+  # Start-Process 'whkd.exe' -Verb RunAs -WindowStyle hidden
   do
   {
     Write-Host "Waiting for Komorebi to start..."
-    Start-Sleep -Seconds 2
+    Start-Sleep -Seconds 1
   } while (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue))
   Write-Host "Komorebi started"
-  . "$DOTFILES\pwsh\komorebi.generated.ps1"
-  Write-Host "Starting YASB & KeyFreq"
-  yasb
-  startAHK
-  Start-Process "C:\Users\aleck\OneDrive\Desktop\Google Calendar.lnk"
+  # . "$DOTFILES\pwsh\komorebi.generated.ps1"
+  # yasb
+  Write-Host "Starting KFreq"
   keyfreq
 }
-
-
-
 
 
 #### Test a File/Path and makes sure it and all its parent directories grant curent user full control

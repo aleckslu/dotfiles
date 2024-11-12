@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 if IsWindows then
-  vim.api.nvim_create_user_command("ClearShada", function()
+  local function clear_shada()
     local shada_path = vim.fn.expand(vim.fn.stdpath("data") .. "/shada")
     local files = vim.fn.glob(shada_path .. "/*", false, true)
     local all_success = 0
@@ -38,7 +38,14 @@ if IsWindows then
     if all_success == 0 then
       vim.print("Successfully deleted all temporary shada files")
     end
-  end, { desc = "Clears all the .tmp shada files" })
+  end
+
+  vim.api.nvim_create_user_command("ClearShada", clear_shada, { desc = "Clears all the .tmp shada files" })
+
+  vim.api.nvim_create_autocmd("VimLeave", {
+    callback = clear_shada,
+    desc = "Clear tmp shada files after shada saved",
+  })
 end
 
 if not IsWindows then
@@ -49,11 +56,10 @@ if not IsWindows then
     command = [[call setreg("@", getreg("+"))]],
   })
 
-  -- sync with system clipboard on focus
-  vim.api.nvim_create_autocmd({ "FocusLost" }, {
-    pattern = { "*" },
-    command = [[call setreg("+", getreg("@"))]],
-  })
-
-  -- require("config.util.wsl-clipboard").setup()
+  --   -- sync with system clipboard on focus
+  --   vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  --     pattern = { "*" },
+  --     command = [[call setreg("+", getreg("@"))]],
+  --   })
+  --
 end

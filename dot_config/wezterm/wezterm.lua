@@ -59,7 +59,7 @@ config.font = wezterm.font_with_fallback({
 	-- "Font Awesome 6 Free Solid",
 	-- -> local function J
 })
-config.font_size = 16
+config.font_size = 17
 
 -- from github issue, making font look closer to other terms
 -- config.font.weight = "SemiBold"

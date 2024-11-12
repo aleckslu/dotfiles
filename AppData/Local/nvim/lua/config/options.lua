@@ -22,29 +22,15 @@ else
   opt.clipboard = ""
   opt.shell = "zsh"
 
-  -- wsl system clipboard - '+' & '*' registers
-  -- vim.g.clipboard = {
-  --   name = "WslClipboard",
-  --   copy = {
-  --     ["+"] = "clip.exe",
-  --     ["*"] = "clip.exe",
-  --   },
-  --   paste = {
-  --     ["+"] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-  --     ["*"] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-  --   },
-  --   cache_enabled = 1,
-  -- }
-
   vim.g.clipboard = {
     name = "win32yank-wsl",
     copy = {
-      ["+"] = "win32yank.exe -i",
-      ["*"] = "win32yank.exe -i",
+      ["+"] = "win32yank.exe -i --crlf",
+      ["*"] = "win32yank.exe -i --crlf",
     },
     paste = {
-      ["+"] = "win32yank.exe -o",
-      ["*"] = "win32yank.exe -o",
+      ["+"] = "win32yank.exe -o --lf",
+      ["*"] = "win32yank.exe -o --lf",
     },
     cache_enabled = 1,
   }

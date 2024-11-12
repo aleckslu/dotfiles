@@ -61,6 +61,26 @@ return {
     -- ObsidianTOC
 
     keys = {
+      {
+        "<leader>oy",
+        function()
+          -- if cur_daily.seconds then
+          local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds - 86400) .. ".md"
+          return vim.cmd("edit " .. path)
+          -- end
+        end,
+        desc = "open [Y]esterday",
+      },
+      {
+        "<leader>oY",
+        function()
+          -- if cur_daily.seconds then
+          local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds + 86400) .. ".md"
+          return vim.cmd("edit " .. path)
+          -- end
+        end,
+        desc = "open Tomorrow",
+      },
       { "<leader>og", "<CMD>ObsidianSearch<CR>", desc = "[G]rep Notes" },
       { "<leader>oo", "<CMD>ObsidianQuickSwitch<CR>", desc = "[O]pen Note" },
       { "<leader>oE", "<CMD>ObsidianExtractNote<CR>", desc = "[E]xtract Note", ft = "markdown" },
@@ -249,24 +269,28 @@ return {
           end,
           opts = { buffer = true, expr = true },
         },
-        ["<leader>oy"] = {
-          action = function()
-            -- if cur_daily.seconds then
-            local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds - 86400) .. ".md"
-            return vim.cmd("edit " .. path)
-            -- end
-          end,
-          opts = { desc = "open [Y]esterday" },
+        ["<leader>os"] = {
+          action = "<Cmd>ObsidianTOC<CR>",
+          opts = { buffer = true, desc = "[S]earch Headers" },
         },
-        ["<leader>oY"] = {
-          action = function()
-            -- if cur_daily.seconds then
-            local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds + 86400) .. ".md"
-            return vim.cmd("edit " .. path)
-            -- end
-          end,
-          opts = { desc = "open Tomorrow" },
-        },
+        -- ["<leader>oy"] = {
+        --   action = function()
+        --     -- if cur_daily.seconds then
+        --     local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds - 86400) .. ".md"
+        --     return vim.cmd("edit " .. path)
+        --     -- end
+        --   end,
+        --   opts = { desc = "open [Y]esterday" },
+        -- },
+        -- ["<leader>oY"] = {
+        --   action = function()
+        --     -- if cur_daily.seconds then
+        --     local path = obs_daily_dir .. os.date("%Y-%m-%d", cur_daily.seconds + 86400) .. ".md"
+        --     return vim.cmd("edit " .. path)
+        --     -- end
+        --   end,
+        --   opts = { desc = "open [Y]esterday" },
+        -- },
         -- ['<leader>op'] = {
         --   action = function()
         --     return require('obsidian').util.working_day_before()

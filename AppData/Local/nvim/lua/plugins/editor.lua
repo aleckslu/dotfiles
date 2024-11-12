@@ -1,6 +1,5 @@
 return {
-  {
-    -- https://www.lazyvim.org/plugins/editor#neo-treenvim
+  { -- Neo-tree https://www.lazyvim.org/plugins/editor#neo-treenvim
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       { "<leader>fe", false },

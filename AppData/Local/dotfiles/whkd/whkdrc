@@ -62,7 +62,7 @@ alt + shift + f         : komorebic toggle-maximize
 
 # Window manager options
 alt + shift + r         : komorebic retile
-# alt + shift + p         : komorebic toggle-pause
+alt + shift + p         : komorebic toggle-pause
 
 # Layouts
 # alt + x                 : komorebic flip-layout horizontal
