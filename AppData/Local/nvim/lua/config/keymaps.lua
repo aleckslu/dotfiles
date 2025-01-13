@@ -29,7 +29,9 @@ keymap.set({ "n", "v" }, ":", ";", { noremap = true })
 keymap.set({ "n", "x" }, "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 keymap.set("n", "U", "<C-r>")
-keymap.set("n", "<leader>q", LazyVim.ui.bufremove, { desc = "Delete Buf" })
+keymap.set("n", "<leader>q", function(n)
+  Snacks.bufdelete(n)
+end, { desc = "Delete Buf" })
 keymap.set({ "n", "x" }, "x", '"_x')
 
 -- Yank/Delete/Paste
